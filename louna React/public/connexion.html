@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Louna Rail TP</title>
+  <meta name="description" content="Connexion à l'espace utilisateur Louna Rail TP. Accédez à votre espace personnel pour gérer vos formations." />
+  <link rel="icon" type="image/png" href="images/LR.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #111; color: #eee; font-family: 'Manrope', Arial, sans-serif; margin: 0; min-height: 100vh; }
+    .container { max-width: 400px; margin: 60px auto; background: rgba(0,0,0,0.7); border-radius: 18px; box-shadow: 0 8px 32px #fde04722; padding: 36px 28px 32px 28px; }
+    .logo { display: flex; justify-content: center; margin-bottom: 32px; }
+    .form-title { color: #fde047; text-align: center; margin-bottom: 18px; font-size: 1.6rem; font-weight: 700; }
+    label { display: block; margin-bottom: 6px; color: #fde047; font-weight: 500; }
+    input[type=email], input[type=password] { width: 100%; padding: 12px; border-radius: 8px; border: 1.5px solid #fde04744; background: #181818; color: #fff; margin-bottom: 18px; font-size: 1rem; }
+    input[type=email]:focus, input[type=password]:focus { outline: none; border-color: #fde047; box-shadow: 0 0 0 2px #fde04733; }
+    .btn { width: 100%; background: linear-gradient(90deg, #fde047, #facc15); color: #222; font-weight: 700; border: none; border-radius: 8px; padding: 12px 0; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; margin-bottom: 10px; }
+    .btn:hover { background: #fde047; color: #000; }
+    .forgot { display: block; text-align: right; color: #fde047; font-size: 0.95rem; text-decoration: underline; margin-bottom: 18px; }
+    .rgpd { color: #bbb; font-size: 0.85rem; margin-top: 10px; text-align: center; }
+    .error { color: #ef4444; font-size: 0.98rem; text-align: center; margin-bottom: 10px; display: none; }
+    @media (max-width: 500px) { .container { margin: 24px 8px; padding: 18px 6px 18px 6px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/LR.png" alt="Logo LR" class="h-12 w-auto animate-logo-fade" style="display:block;background:none;" />
+    </div>
+    <div class="form-title">Connexion à votre espace</div>
+    <form id="loginForm" autocomplete="off">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="Votre email" />
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" name="password" required placeholder="Votre mot de passe" />
+      <div style="margin-bottom:12px;text-align:left;">
+        <input type="checkbox" id="showPassword" style="margin-right:6px;" />
+        <label for="showPassword" style="color:#fde047;font-size:0.97rem;cursor:pointer;">Afficher le mot de passe</label>
+      </div>
+      <div class="error" id="loginError">Identifiants incorrects. Veuillez réessayer.</div>
+      <button type="submit" class="btn">Se connecter</button>
+      <button type="button" id="showUsers" class="btn" style="background:#222;color:#fde047;margin-bottom:8px;">Afficher les comptes enregistrés</button>
+      <div id="usersList" style="background:#181818;padding:10px 8px 8px 8px;border-radius:8px;color:#fde047;font-size:0.97rem;display:none;margin-bottom:8px;"></div>
+      <a href="inscription.html" class="forgot" style="text-align:left;display:block;">Créer un compte</a>
+      <a href="#" class="forgot">Mot de passe oublié ?</a>
+      <div class="rgpd">En vous connectant, vous acceptez notre <a href="politique-confidentialite.html" style="color:#fde047;">politique de confidentialité</a>.</div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+      if(user) {
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => { document.getElementById('loginError').style.display = 'none'; }, 4000);
+      }
+    });
+    // Afficher/masquer le mot de passe
+    document.getElementById('showPassword').addEventListener('change', function() {
+      const pwd = document.getElementById('password');
+      pwd.type = this.checked ? 'text' : 'password';
+    });
+    // Afficher les comptes enregistrés (debug)
+    document.getElementById('showUsers').addEventListener('click', function() {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const usersList = document.getElementById('usersList');
+      if(users.length === 0) {
+        usersList.innerHTML = '<em>Aucun compte enregistré.</em>';
+      } else {
+        usersList.innerHTML = users.map(u => `<b>Email:</b> ${u.email}<br><b>Mot de passe:</b> ${u.password}`).join('<hr style=\'border:0;border-top:1px solid #fde04733;margin:8px 0;\'>');
+      }
+      usersList.style.display = usersList.style.display === 'none' ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html> 

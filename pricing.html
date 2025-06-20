@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LounaRail - Tarification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #4a90e2, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-header p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(74, 144, 226, 0.5);
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.2);
+        }
+
+        .pricing-card.popular {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: #4a90e2;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #4a90e2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .plan-description {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4a90e2;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            color: #ccc;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #4a90e2;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .feature-list li.disabled {
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .feature-list li.disabled::before {
+            content: "×";
+            color: #666;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #4a90e2;
+            color: #4a90e2;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(74, 144, 226, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cta-button.tertiary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button.tertiary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pricing-header">
+        <h1>FAÇONNEZ L'AVENIR DU RAIL</h1>
+        <p>Choisissez la formule qui correspond à vos besoins. Tous nos plans incluent nos fonctionnalités essentielles avec différentes allocations de ressources.</p>
+    </div>
+
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <h2 class="plan-name">EXPLORER</h2>
+            <p class="plan-description">Parfait pour débuter dans le ferroviaire</p>
+            <div class="plan-price">
+                1200€ <span>/mois</span>
+            </div>
+            <ul class="feature-list">
+                <li>Formation initiale (25h)</li>
+                <li>Accès à 2 engins</li>
+                <li>Support communautaire</li>
+                <li>Documentation technique</li>
+                <li class="disabled">Formations avancées</li>
+                <li class="disabled">Support prioritaire</li>
+            </ul>
+            <button class="cta-button secondary">Commencer</button>
+        </div>
+
+        <div class="pricing-card popular">
+            <div class="popular-badge">PLUS POPULAIRE</div>
+            <h2 class="plan-name">EXPERT</h2>
+            <p class="plan-description">Idéal pour les professionnels confirmés</p>
+            <div class="plan-price">
+                2900€ <span>/mois</span>
+            </div>
+            <ul class="feature-list">
+                <li>Formation complète (50h)</li>
+                <li>Accès à 5 engins</li>
+                <li>Support prioritaire</li>
+                <li>Documentation avancée</li>
+                <li>Formations spécialisées</li>
+                <li>Analyse de performance</li>
+            </ul>
+            <button class="cta-button primary">Choisir ce plan</button>
+        </div>
+
+        <div class="pricing-card">
+            <h2 class="plan-name">EXCELLENCE</h2>
+            <p class="plan-description">Pour les grandes organisations</p>
+            <div class="plan-price">
+                7900€ <span>/mois</span>
+            </div>
+            <ul class="feature-list">
+                <li>Formation illimitée</li>
+                <li>Accès à tous les engins</li>
+                <li>Support dédié 24/7</li>
+                <li>Documentation personnalisée</li>
+                <li>Formations sur mesure</li>
+                <li>API & intégrations</li>
+            </ul>
+            <button class="cta-button tertiary">Contacter commercial</button>
+        </div>
+    </div>
+</body>
+</html> 

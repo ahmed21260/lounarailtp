@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack Maintenance - Louna Rail TP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+        .status-ok { background-color: #22c55e; }
+        .status-error { background-color: #ef4444; }
+        .status-unknown { background-color: #f97316; }
+        .status-running { background-color: #3b82f6; }
+        .tooltip { position: relative; display: inline-block; }
+        .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: #374151; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-yellow-400">AURA - Pack Maintenance</h1>
+            <span class="text-sm text-gray-400">Version 1.5</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- STATUT DU SYSTÈME -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Statut du Système</h2>
+                <ul class="space-y-3">
+                    <li id="status-api" class="flex items-center"><span class="status-dot status-unknown"></span>API Backend <button id="test-api-btn" class="ml-auto text-xs bg-blue-600 hover:bg-blue-500 rounded px-2 py-1">Tester</button></li>
+                    <li id="status-db" class="flex items-center"><span class="status-dot status-unknown"></span>Base de données (database.js)</li>
+                    <li id="status-config" class="flex items-center"><span class="status-dot status-unknown"></span>Fichier de config (config.js)</li>
+                </ul>
+            </div>
+
+            <!-- DIAGNOSTIC NAVIGATION -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Diagnostic Navigation</h2>
+                <ul id="nav-checklist" class="space-y-2 text-sm">
+                    <!-- Liens injectés par JS -->
+                </ul>
+            </div>
+            
+            <!-- ACTIONS RAPIDES -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Actions Rapides</h2>
+                <div class="flex flex-col space-y-3">
+                    <button id="download-db" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded transition">Télécharger database.js</button>
+                    <button id="clear-errors" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition">Effacer les logs d'erreurs</button>
+                </div>
+            </div>
+
+            <!-- JOURNAL DES ERREURS -->
+            <div class="md:col-span-2 lg:col-span-3 bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Journal des Erreurs JavaScript</h2>
+                <div id="error-log-container" class="h-64 overflow-y-auto bg-gray-900 rounded p-4 text-xs font-mono">
+                    <p class="text-gray-500">Aucune erreur détectée pour le moment.</p>
+                </div>
+            </div>
+        </div>
+        <footer class="text-center text-gray-500 mt-10 text-xs">
+            <p>Ce tableau de bord est un outil de diagnostic. Les statuts sont mis à jour en temps réel.</p>
+        </footer>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/database.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const KEY_FILES = {
+            'database.js': { check: () => window.db && Object.keys(window.db).length > 0, element: document.getElementById('status-db') },
+            'config.js': { check: () => window.AURA && window.AURA.version, element: document.getElementById('status-config') }
+        };
+
+        const NAV_LINKS = [
+            { name: 'Accueil', url: 'lounarailtp.html' },
+            { name: 'Formations', url: 'formations.html' },
+            { name: 'Prestations', url: 'prestation.html' },
+            { name: 'Inscription', url: 'inscription.html' },
+            { name: 'Connexion / Mon Espace', url: 'connexion.html' },
+            { name: 'Sécurité Ferroviaire', url: 'securite-ferroviaire.html' },
+            { name: 'Mentions Légales', url: 'mentions-legales.html' },
+            { name: 'Politique de Confidentialité', url: 'politique-confidentialite.html' }
+        ];
+
+        const updateStatus = (element, isOk, okText, errorText) => {
+            const dot = element.querySelector('.status-dot');
+            dot.classList.remove('status-unknown', 'status-ok', 'status-error', 'status-running');
+            if (isOk === 'running') {
+                dot.classList.add('status-running');
+            } else {
+                dot.classList.add(isOk ? 'status-ok' : 'status-error');
+            }
+            element.childNodes[1].nodeValue = ` ${isOk ? okText : errorText}`;
+        };
+
+        // 1. Test de connectivité API
+        const testApiBtn = document.getElementById('test-api-btn');
+        const apiStatusEl = document.getElementById('status-api');
+        testApiBtn.addEventListener('click', async () => {
+            updateStatus(apiStatusEl, 'running', '', 'API Backend');
+            try {
+                const response = await fetch('/api/test');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                if (data.status === 'OK') {
+                    const message = data.email_configured ? 'API OK (Email configuré)' : 'API OK (Email non configuré)';
+                    updateStatus(apiStatusEl, true, message, '');
+                } else {
+                    throw new Error('Réponse invalide de l\'API');
+                }
+            } catch (error) {
+                console.error("Erreur API:", error);
+                updateStatus(apiStatusEl, false, '', 'API Inaccessible');
+                logErrorToJournal('Erreur de test API', error);
+            }
+        });
+
+        // 2. Vérification des fichiers clés
+        Object.entries(KEY_FILES).forEach(([name, file]) => {
+            const isOk = file.check();
+            updateStatus(file.element, isOk, `${name} chargé`, `${name} manquant ou corrompu`);
+            if (!isOk) {
+                logErrorToJournal(`Fichier ${name} non chargé`, new Error(`Le fichier ${name} semble manquant ou n'a pas été initialisé correctement.`));
+            }
+        });
+
+        // 3. Remplissage du diagnostic de navigation
+        const navChecklist = document.getElementById('nav-checklist');
+        navChecklist.innerHTML = '';
+        NAV_LINKS.forEach(link => {
+            const li = document.createElement('li');
+            li.className = 'flex items-center justify-between bg-gray-700/50 p-2 rounded';
+            li.innerHTML = `
+                <span>${link.name}</span>
+                <a href="${link.url}" target="_blank" class="text-xs bg-gray-600 hover:bg-gray-500 rounded px-2 py-1">Tester →</a>
+            `;
+            navChecklist.appendChild(li);
+        });
+
+        // 4. Journal des erreurs
+        const errorLogContainer = document.getElementById('error-log-container');
+        const logErrorToJournal = (message, error) => {
+            if (errorLogContainer.querySelector('p')) {
+                errorLogContainer.innerHTML = ''; // Nettoyer le message par défaut
+            }
+            const errorEntry = document.createElement('div');
+            errorEntry.className = 'p-2 border-b border-gray-700';
+            errorEntry.innerHTML = `
+                <p class="text-red-400 font-semibold">${message}</p>
+                <p class="text-gray-400">${error.message}</p>
+                <p class="text-gray-500 text-xs">${new Date().toLocaleString()}</p>
+            `;
+            errorLogContainer.prepend(errorEntry);
+        };
+        
+        // Afficher les erreurs déjà capturées par config.js
+        if (window.AURA && window.AURA.errorLog && window.AURA.errorLog.length > 0) {
+            errorLogContainer.innerHTML = '';
+             window.AURA.errorLog.forEach(err => {
+                const errorEntry = document.createElement('div');
+                errorEntry.className = 'p-2 border-b border-gray-700';
+                errorEntry.innerHTML = `
+                    <p class="text-red-400 font-semibold">${err.message}</p>
+                    <p class="text-gray-400">${err.source} @ L${err.lineno}:${err.colno}</p>
+                    <p class="text-gray-500 text-xs">${new Date(err.timestamp).toLocaleString()}</p>
+                `;
+                errorLogContainer.prepend(errorEntry);
+             });
+        }
+        document.getElementById('clear-errors').addEventListener('click', () => {
+            if(window.AURA) window.AURA.errorLog = [];
+            errorLogContainer.innerHTML = '<p class="text-gray-500">Logs effacés.</p>';
+        });
+
+
+        // 5. Actions rapides
+        document.getElementById('download-db').addEventListener('click', () => {
+            if (!window.db) {
+                alert("La base de données n'est pas chargée.");
+                return;
+            }
+            const dataStr = "const db = " + JSON.stringify(window.db, null, 2) + ";";
+            const dataUri = 'data:application/javascript;charset=utf-8,' + encodeURIComponent(dataStr);
+            const exportFileDefaultName = 'database.backup.js';
+            let linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        });
+
+    });
+    </script>
+</body>
+</html>

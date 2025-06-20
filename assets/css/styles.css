@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    overflow: hidden;
+    font-family: 'Manrope', -apple-system, system-ui, sans-serif;
+}
+
+#globe-container {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+canvas {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background: black;
+    pointer-events: none;
+}
+
+/* Barre de loading */
+#loading-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-bar {
+    position: relative;
+    height: 28px;
+    width: 320px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(250, 204, 21, 0.8);
+    border-radius: 9999px;
+    overflow: hidden;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 30px rgba(250, 204, 21, 0.3);
+    backdrop-filter: blur(16px);
+}
+
+.loading-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #facc15,
+        #fbbf24,
+        #f59e0b
+    );
+    border-radius: 9999px;
+    box-shadow: 
+        0 10px 15px -3px rgba(250, 204, 21, 0.3),
+        0 0 20px rgba(250, 204, 21, 0.5);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    transition: width 0.2s cubic-bezier(0.7, 0, 0.3, 1);
+    width: 0%;
+}
+
+.loading-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fde047;
+    letter-spacing: 0.1em;
+    text-shadow: 
+        0 0 16px #fde047,
+        0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Bouton Découvrir */
+#discover-button {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 48px;
+    font-size: 24px;
+    font-weight: 800;
+    color: black;
+    background: linear-gradient(
+        to right,
+        #facc15,
+        #fbbf24,
+        #f59e0b
+    );
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50;
+    text-shadow: 
+        0 0 24px white,
+        0 2px 0 #fde047;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 30px rgba(250, 204, 21, 0.3);
+    backdrop-filter: blur(16px);
+    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#discover-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 
+        0 25px 50px -12px rgba(250, 204, 21, 0.4),
+        0 0 50px rgba(250, 204, 21, 0.5);
+    text-shadow: 
+        0 0 32px white,
+        0 2px 0 #fde047;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#discover-button:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Split effect */
+.split {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: black;
+    z-index: 60;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.split.left {
+    left: 0;
+    transform: translateX(0);
+}
+
+.split.right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.split.left.active {
+    transform: translateX(-100%);
+}
+
+.split.right.active {
+    transform: translateX(100%);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+/* Particules */
+.particle {
+    position: absolute;
+    background: radial-gradient(
+        circle at center,
+        rgba(250, 204, 21, 0.8),
+        rgba(250, 204, 21, 0)
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+} 

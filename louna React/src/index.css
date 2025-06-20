@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: black url('../img/fond.jpg') center/cover no-repeat;
+  overflow: hidden;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #111;
+  color: #fff;
+}

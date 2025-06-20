@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Louna Rail TP</title>
+  <meta name="description" content="Connexion à l'espace utilisateur Louna Rail TP. Accédez à votre espace personnel pour gérer vos formations." />
+  <link rel="icon" type="image/png" href="images/LR.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { 
+      background: #111; 
+      color: #eee; 
+      font-family: 'Manrope', Arial, sans-serif; 
+      margin: 0; 
+      min-height: 100vh;
+      background-image: url('images/dashboard/Présentation banniere.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .container { 
+      max-width: 450px; 
+      margin: 80px auto; 
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 24px; 
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      box-shadow: 0 8px 32px rgba(250, 204, 21, 0.2);
+      padding: 40px;
+    }
+    /* Styles pour les champs de formulaire et boutons, identiques à inscription.html */
+    .form-group { margin-bottom: 24px; }
+    .form-label { display: block; margin-bottom: 8px; color: #fde047; font-weight: 500; font-size: 0.95rem; }
+    .form-control { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1.5px solid rgba(250, 204, 21, 0.3); background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 1rem; transition: all 0.3s ease; }
+    .form-control:focus { outline: none; border-color: #fde047; box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2); }
+    .btn-primary { width: 100%; background: linear-gradient(90deg, #facc15, #fde047); color: #000; font-weight: 600; border: none; border-radius: 12px; padding: 14px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; }
+    .btn-primary:hover { background: #fde047; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3); }
+    .error { padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.95rem; text-align: center; display: none; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .link { display: block; text-align: center; color: #fde047; font-size: 0.95rem; text-decoration: none; margin-top: 16px; transition: color 0.2s; }
+    .link:hover { color: #facc15; text-decoration: underline; }
+    @media (max-width: 640px) {
+      .container { margin: 20px 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body class="relative">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  
+  <div class="container relative z-10">
+    <div class="flex justify-center mb-8">
+      <img src="images/LR.png" alt="Logo LR" class="h-16 w-auto" />
+    </div>
+    
+    <h1 class="text-2xl font-semibold text-center mb-8 text-yellow-400">Accès Stagiaire</h1>
+    
+    <form id="loginForm" autocomplete="off" class="space-y-6">
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required placeholder="Votre email" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" class="form-control" required placeholder="Votre mot de passe" />
+      </div>
+      
+      <div class="flex justify-between items-center text-sm">
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="showPassword" class="form-checkbox bg-transparent border-yellow-400/50 text-yellow-400 focus:ring-yellow-400/30">
+          <label for="showPassword" class="text-gray-300">Afficher</label>
+        </div>
+        <a href="#" class="link !mt-0 text-sm">Mot de passe oublié ?</a>
+      </div>
+
+      <div class="error" id="loginError">Identifiants incorrects. Veuillez réessayer.</div>
+
+      <button type="submit" class="btn-primary">
+        Se connecter
+      </button>
+
+      <a href="inscription.html" class="link">Pas encore de compte ? S'inscrire</a>
+    </form>
+  </div>
+
+  <script>
+    // Script de connexion existant, légèrement adapté pour les nouveaux IDs/classes si nécessaire
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+      const error = document.getElementById('loginError');
+
+      if(user) {
+        window.location.href = 'dashboard.html';
+      } else {
+        error.style.display = 'block';
+        setTimeout(() => { error.style.display = 'none'; }, 4000);
+      }
+    });
+
+    document.getElementById('showPassword').addEventListener('change', function() {
+      const pwd = document.getElementById('password');
+      pwd.type = this.checked ? 'text' : 'password';
+    });
+  </script>
+</body>
+</html> 
