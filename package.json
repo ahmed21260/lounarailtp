@@ -1,0 +1,35 @@
+{
+  "name": "louna-rail-tp",
+  "version": "1.0.0",
+  "description": "Site web professionnel de Louna Rail TP - Expert en travaux publics ferroviaires",
+  "main": "server.py",
+  "scripts": {
+    "start": "python server.py",
+    "dev": "python server.py",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "build": "echo 'Build completed'",
+    "test": "python -m pytest"
+  },
+  "keywords": [
+    "rail",
+    "ferroviaire",
+    "travaux-publics",
+    "formation",
+    "caces",
+    "flask",
+    "python"
+  ],
+  "author": "Louna Rail TP",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lounarailtp/website.git"
+  },
+  "homepage": "https://lounarailtp.com"
+} 

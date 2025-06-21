@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Quiz - Louna Rail TP</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #e5e7eb;
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+    .quiz-info {
+      background: rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid rgba(250, 204, 21, 0.2);
+    }
+    .success { color: #22c55e; }
+    .error { color: #ef4444; }
+  </style>
+</head>
+<body>
+  <h1>Test des Quiz - Louna Rail TP</h1>
+  
+  <div id="testResults">
+    <h2>Résultats du test :</h2>
+    <div id="results"></div>
+  </div>
+
+  <script src="assets/js/database.js"></script>
+  <script>
+    function testQuizSystem() {
+      const results = document.getElementById('results');
+      let html = '';
+
+      // Test 1: Vérifier que db.quizzes existe
+      if (db.quizzes && Array.isArray(db.quizzes)) {
+        html += '<div class="quiz-info success">✅ Base de données des quiz chargée (' + db.quizzes.length + ' quiz trouvés)</div>';
+      } else {
+        html += '<div class="quiz-info error">❌ Erreur: Base de données des quiz non trouvée</div>';
+        return;
+      }
+
+      // Test 2: Lister tous les quiz
+      html += '<h3>Quiz disponibles :</h3>';
+      db.quizzes.forEach((quiz, index) => {
+        html += `
+          <div class="quiz-info">
+            <h4>${quiz.title}</h4>
+            <p><strong>ID:</strong> ${quiz._id}</p>
+            <p><strong>Formation ID:</strong> ${quiz.formationId}</p>
+            <p><strong>Description:</strong> ${quiz.description}</p>
+            <p><strong>Questions:</strong> ${quiz.questions.length}</p>
+            <p><strong>Score minimum:</strong> ${quiz.passingScore}%</p>
+            <p><strong>Temps limite:</strong> ${quiz.timeLimit} minutes</p>
+            <a href="quiz.html?quiz=${quiz._id}" style="color: #facc15;">Tester ce quiz</a>
+          </div>
+        `;
+      });
+
+      // Test 3: Vérifier les formations associées
+      html += '<h3>Formations associées :</h3>';
+      db.quizzes.forEach(quiz => {
+        const formation = db.products.find(p => p._id === quiz.formationId);
+        if (formation) {
+          html += `<div class="quiz-info success">✅ Quiz "${quiz.title}" → Formation "${formation.name}"</div>`;
+        } else {
+          html += `<div class="quiz-info error">❌ Quiz "${quiz.title}" → Formation non trouvée (ID: ${quiz.formationId})</div>`;
+        }
+      });
+
+      results.innerHTML = html;
+    }
+
+    // Lancer le test au chargement
+    document.addEventListener('DOMContentLoaded', testQuizSystem);
+  </script>
+</body>
+</html> 

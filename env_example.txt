@@ -1,19 +1,20 @@
-# Configuration Email Louna Rail TP
-# Copiez ce fichier en .env et remplissez vos vraies valeurs
-
-# Serveur SMTP (Gmail ou votre serveur)
+# Configuration Email
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
-
-# Email d'envoi et réception
 SENDER_EMAIL=contact@lounarailtp.com
-SENDER_PASSWORD=votre-mot-de-passe-app-gmail
+SENDER_PASSWORD=votre_mot_de_passe_app
 RECIPIENT_EMAIL=contact@lounarailtp.com
 
-# Configuration serveur
-SECRET_KEY=lounarailtp-secret-key-2025
-DEBUG=True
+# Configuration Sécurité
+SECRET_KEY=votre_cle_secrete_tres_longue_et_complexe
 
-# Configuration alternative pour serveur SMTP personnalisé
-# SMTP_SERVER=mail.lounarailtp.com
-# SENDER_PASSWORD=votre-mot-de-passe-smtp 
+# Configuration Base de données
+DATABASE=lounarail_final.db
+
+# Configuration Environnement
+FLASK_ENV=production
+FLASK_DEBUG=False
+
+# Configuration Domaine
+DOMAIN=lounarailtp.com
+SITE_NAME=Louna Rail TP 

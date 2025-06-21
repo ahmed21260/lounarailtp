@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sélection de Quiz - Louna Rail TP</title>
+  <meta name="description" content="Choisissez parmi nos quiz spécialisés en formation ferroviaire pour tester vos connaissances." />
+  <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #e5e7eb;
+      font-family: 'Manrope', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .quiz-card {
+      background: rgba(0,0,0,0.7);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .quiz-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(250, 204, 21, 0.4);
+      box-shadow: 0 8px 25px rgba(250, 204, 21, 0.1);
+    }
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .quiz-stats {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .stat {
+      background: rgba(250, 204, 21, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      color: #facc15;
+    }
+    .btn {
+      background: linear-gradient(90deg, #facc15, #eab308);
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+    }
+    .header {
+      background-color: #111111;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .logout-button {
+      background-color: #991b1b;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .logout-button:hover { 
+      background-color: #7f1d1d; 
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="text-lg font-bold">Louna Rail TP - Quiz</div>
+    <div class="flex items-center gap-4">
+      <button onclick="goToDashboard()" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+        Dashboard
+      </button>
+      <button onclick="logout()" class="logout-button">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-4 md:p-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">
+        <span class="text-yellow-400">Quiz</span> d'Évaluation
+      </h1>
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        Testez vos connaissances avec nos quiz spécialisés en formation ferroviaire. 
+        Chaque quiz évalue des compétences spécifiques essentielles à votre domaine.
+      </p>
+    </div>
+
+    <div class="quiz-grid" id="quizGrid">
+      <!-- Quiz cards will be dynamically inserted here -->
+    </div>
+  </main>
+
+  <script src="assets/js/database.js?v=1.2"></script>
+  <script>
+    function getToken() { 
+      return localStorage.getItem('jwt_token') || sessionStorage.getItem('jwt_token'); 
+    }
+    
+    function logout() {
+      localStorage.removeItem('jwt_token');
+      sessionStorage.removeItem('jwt_token');
+      window.location.href = 'connexion.html';
+    }
+
+    function goToDashboard() {
+      window.location.href = 'dashboard.html';
+    }
+
+    function startQuiz(quizId) {
+      window.location.href = `quiz.html?quiz=${quizId}`;
+    }
+
+    function renderQuizzes() {
+      const quizGrid = document.getElementById('quizGrid');
+      
+      if (!db.quizzes || db.quizzes.length === 0) {
+        quizGrid.innerHTML = `
+          <div class="col-span-full text-center py-12">
+            <h3 class="text-2xl font-bold text-gray-400 mb-4">Aucun quiz disponible</h3>
+            <p class="text-gray-500">Les quiz sont en cours de préparation.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const quizCards = db.quizzes.map(quiz => {
+        // Get formation info
+        const formation = db.products.find(p => p._id === quiz.formationId);
+        const formationName = formation ? formation.name : 'Formation générale';
+        
+        return `
+          <div class="quiz-card" onclick="startQuiz('${quiz._id}')">
+            <div class="quiz-header">
+              <div>
+                <h3 class="text-xl font-bold text-yellow-400 mb-2">${quiz.title}</h3>
+                <p class="text-sm text-gray-400">${formationName}</p>
+              </div>
+            </div>
+            
+            <p class="text-gray-300 mb-4">${quiz.description}</p>
+            
+            <div class="quiz-stats">
+              <div class="stat">
+                <strong>Score min:</strong> ${quiz.passingScore}%
+              </div>
+              <div class="stat">
+                <strong>Temps:</strong> ${quiz.timeLimit} min
+              </div>
+              <div class="stat">
+                <strong>Questions:</strong> ${quiz.questions.length}
+              </div>
+            </div>
+            
+            <button class="btn">
+              Commencer le Quiz
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      quizGrid.innerHTML = quizCards;
+    }
+
+    // Check authentication
+    function checkAuth() {
+      const token = getToken();
+      if (!token) {
+        window.location.href = 'connexion.html';
+        return;
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+      renderQuizzes();
+    });
+  </script>
+</body>
+</html> 

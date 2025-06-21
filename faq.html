@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Questions Fréquentes | Louna Rail TP</title>
+  <meta name="description" content="Trouvez toutes les réponses à vos questions sur Louna Rail TP : prestations ferroviaires, formations CACES, location d'engins, certifications et qualification Qualiopi." />
+  <meta name="keywords" content="FAQ Louna Rail TP, questions fréquentes, prestations ferroviaires, formation CACES, location engins, certification Qualiopi, CPF formation" />
+  <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { 
+      background-color: #000;
+      color: #eee; 
+      font-family: 'Manrope', Arial, sans-serif; 
+    }
+    .spline-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.5;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: -1;
+    }
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(to right, #facc15, #fde047, #fbbf24);
+    }
+    .faq-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      margin-bottom: 16px;
+    }
+    .faq-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(250, 204, 21, 0.15);
+      border-color: rgba(250, 204, 21, 0.4);
+    }
+    .faq-question {
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .faq-answer {
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+    .highlight-box {
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-black text-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Header & Navigation -->
+    <header class="relative z-20">
+      <nav class="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+          <div class="flex-shrink-0">
+            <a href="index.html">
+              <img src="images/LOGO pelle rail.png" alt="Logo Louna Rail TP" class="h-24 md:h-32 w-auto" />
+            </a>
+          </div>
+          
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-4">
+            <div class="hidden md:flex space-x-6 lg:space-x-8 text-base text-gray-300">
+              <a href="lounarailtp.html" class="hover:text-yellow-400 transition-colors">Accueil</a>
+              <a href="prestation.html" class="hover:text-yellow-400 transition-colors">Prestations</a>
+              <a href="location.html" class="hover:text-yellow-400 transition-colors">Location</a>
+              <a href="formations.html" class="hover:text-yellow-400 transition-colors">Formations</a>
+              <a href="lounarailtp.html#contact" class="hover:text-yellow-400 transition-colors">Contact</a>
+            </div>
+            <button class="espace-formation-redirect text-white text-sm border border-yellow-400/40 rounded-full px-5 py-2 hover:bg-yellow-400 hover:text-black transition-all pointer-events-auto focus:bg-yellow-400 focus:text-black shadow-lg" style="box-shadow:0 2px 12px #facc15aa;">
+              Espace Formation
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-white p-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+          <div class="px-2 pt-2 pb-3 space-y-2 sm:px-3 flex flex-col bg-black/50 backdrop-blur-md rounded-lg border border-white/10">
+            <a href="lounarailtp.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Accueil</a>
+            <a href="prestation.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Prestations</a>
+            <a href="location.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Location</a>
+            <a href="formations.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Formations</a>
+            <a href="lounarailtp.html#contact" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            <div class="border-t border-white/10 my-2"></div>
+            <button class="espace-formation-redirect w-full text-left text-white bg-yellow-400/20 px-3 py-2 rounded-md text-base font-medium">Espace Formation</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+      <!-- Header Section -->
+      <header class="text-center mb-16">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter mb-4">
+          QUESTIONS <span class="gradient-text italic font-semibold">FRÉQUENTES</span>
+        </h1>
+        <p class="text-gray-300 max-w-3xl mx-auto text-lg italic">
+          Trouvez rapidement toutes les réponses à vos questions sur nos prestations ferroviaires, formations CACES, location d'engins et plus encore.
+        </p>
+      </header>
+
+      <!-- FAQ Section -->
+      <section class="max-w-4xl mx-auto">
+        
+        <!-- Prestations -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">PRESTATIONS FERROVIAIRES</h2>
+          
+          <div class="faq-item">
+            <div class="faq-question">Quelles sont vos certifications pour les travaux ferroviaires ?</div>
+            <div class="faq-answer">
+              Louna Rail TP dispose de toutes les certifications requises pour les travaux ferroviaires : agréments SNCF Réseau, certifications sécurité, et accréditations pour les interventions sur voies ferrées. Notre centre de formation est en cours de qualification Qualiopi - cette démarche nous permettra prochainement de proposer des formations éligibles au financement CPF, aux OPCO et autres dispositifs de formation professionnelle.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Intervenez-vous en urgence ?</div>
+            <div class="faq-answer">
+              Notre équipe d'intervention rapide peut être mobilisée en moins de 4h pour les urgences ferroviaires. Nous disposons d'équipements de secours et d'équipes dédiées aux interventions d'urgence.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Quels types de chantiers réalisez-vous ?</div>
+            <div class="faq-answer">
+              Nous intervenons sur tous types de chantiers ferroviaires : renouvellement Voie-Ballast (RVB), chantiers Grand Paris Express, pose et maintenance de voies, grutage ferroviaire spécialisé, et interventions d'urgence.
+            </div>
+          </div>
+        </div>
+
+        <!-- Formations -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">FORMATIONS</h2>
+          
+          <div class="faq-item">
+            <div class="faq-question">Proposez-vous des formations en intra-entreprise ?</div>
+            <div class="faq-answer">
+              Oui, nous adaptons nos formations à vos besoins spécifiques et pouvons intervenir sur votre site ou dans nos locaux équipés. Nos formateurs expérimentés s'adaptent à votre planning et à vos contraintes opérationnelles.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Quels sont vos tarifs de formation ?</div>
+            <div class="faq-answer">
+              Nos tarifs varient selon le type de formation et le nombre de participants. Contactez-nous pour un devis personnalisé. Bientôt éligibles CPF grâce à notre qualification Qualiopi en cours.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Quelles formations proposez-vous ?</div>
+            <div class="faq-answer">
+              Nous proposons des formations certifiantes : CACES R482 pour la conduite d'engins rail-route, Pack Engcon pour la maîtrise des tiltrotateurs, perfectionnement sécurité ferroviaire, et formation continue.
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h3 class="text-yellow-400 font-semibold mb-2">📋 Qualification Qualiopi en cours</h3>
+            <p class="text-sm">Notre centre de formation est actuellement en cours de qualification Qualiopi. Cette démarche nous permettra prochainement de proposer des formations éligibles au financement CPF, aux OPCO et autres dispositifs de formation professionnelle.</p>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">LOCATION D'ENGINS</h2>
+          
+          <div class="faq-item">
+            <div class="faq-question">Quelle est la disponibilité de votre flotte d'engins ?</div>
+            <div class="faq-answer">
+              Notre flotte est disponible 24h/24 et 7j/7, avec une planification flexible adaptée à vos contraintes de chantier. Nous garantissons une réactivité optimale pour tous vos projets ferroviaires.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Quels types d'engins proposez-vous à la location ?</div>
+            <div class="faq-answer">
+              Nous proposons une flotte complète d'engins rail-route : pelles mécaniques, grues mobiles, engins spécialisés, tous équipés des dernières technologies Engcon pour une précision maximale.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Proposez-vous la location avec opérateur ?</div>
+            <div class="faq-answer">
+              Oui, nous proposons la location d'engins avec ou sans opérateur selon vos besoins. Nos opérateurs sont certifiés et expérimentés pour garantir une utilisation optimale et sécurisée.
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact & Devis -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">CONTACT & DEVIS</h2>
+          
+          <div class="faq-item">
+            <div class="faq-question">Comment obtenir un devis ?</div>
+            <div class="faq-answer">
+              Vous pouvez nous contacter via notre formulaire en ligne, par téléphone ou par email. Notre équipe vous recontactera sous 24h pour étudier votre projet et vous proposer un devis personnalisé.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Quels sont vos délais d'intervention ?</div>
+            <div class="faq-answer">
+              Nos délais varient selon le type de prestation et l'urgence. Pour les interventions d'urgence, nous pouvons intervenir en moins de 4h. Pour les projets planifiés, nous nous adaptons à votre planning.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Intervenez-vous sur tout le territoire français ?</div>
+            <div class="faq-answer">
+              Oui, nous intervenons sur l'ensemble du territoire français. Notre équipe mobile nous permet de répondre aux besoins de nos clients partout en France.
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center mt-16">
+          <h3 class="text-xl font-semibold mb-4">Vous ne trouvez pas votre réponse ?</h3>
+          <p class="text-gray-300 mb-8">Notre équipe d'experts est à votre disposition pour répondre à toutes vos questions.</p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="lounarailtp.html#contact" class="bg-yellow-400 text-black rounded-full px-8 py-3 font-semibold hover:bg-yellow-300 transition-all">
+              NOUS CONTACTER
+            </a>
+            <a href="lounarailtp.html" class="bg-transparent border border-yellow-400 text-yellow-400 rounded-full px-8 py-3 font-semibold hover:bg-yellow-400 hover:text-black transition-all">
+              RETOUR À L'ACCUEIL
+            </a>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full px-6 py-8 text-center mt-16 border-t border-white/10">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-white/40 text-sm">© 2025 Louna Rail TP. Tous droits réservés.</p>
+        <div class="flex justify-center space-x-4 mt-4">
+          <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors">Politique de confidentialité</a>
+          <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors">Mentions légales</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Espace formation redirect
+    document.querySelectorAll('.espace-formation-redirect').forEach(button => {
+      button.addEventListener('click', function() {
+        window.open('connexion.html', '_blank');
+      });
+    });
+  </script>
+</body>
+</html> 

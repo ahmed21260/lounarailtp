@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prestations Ferroviaires & Chantiers | Louna Rail TP</title>
-  <meta name="description" content="Découvrez nos prestations ferroviaires : travaux RVB, chantiers Grand Paris, pose de voies, et plus. Louna Rail TP allie expertise technique, sécurité et fiabilité." />
-  <meta name="keywords" content="prestation ferroviaire, travaux de voie, chantier ferroviaire, renouvellement voie ballast, RVB, grutage ferroviaire, Louna Rail TP" />
+  <title>Nos Prestations - Louna Rail TP</title>
+  <meta name="description" content="Découvrez l'expertise et le savoir-faire de Louna Rail TP en matière de prestations ferroviaires. Qualité, sécurité et fiabilité garanties." />
   <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -57,55 +56,12 @@
         overflow: hidden;
         border-radius: 16px;
         border: 1px solid rgba(250, 204, 21, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
     }
     .gallery-item img {
         transition: transform 0.4s ease;
     }
-    .gallery-item:hover {
-        transform: scale(1.1);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        z-index: 10;
-    }
-
-    .image-preview-fullscreen {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      max-width: 90vw;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
-      z-index: 100;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      pointer-events: none; /* Ignore mouse events on the preview */
-    }
-
-    .image-preview-fullscreen.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .backdrop-preview {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      z-index: 99;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .backdrop-preview.active {
-      opacity: 1;
+    .gallery-item:hover img {
+        transform: scale(1.05);
     }
   </style>
 </head>
@@ -118,7 +74,7 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center">
           <div class="flex-shrink-0">
             <a href="index.html">
-              <img src="images/LOGO pelle rail.png" alt="Logo Louna Rail TP" class="h-24 md:h-32 w-auto" />
+              <img src="images/LOGO pelle rail.png" alt="Logo LR" class="h-24 md:h-32 w-auto" />
             </a>
           </div>
           
@@ -126,8 +82,6 @@
           <div class="hidden md:flex items-center space-x-4">
             <div class="hidden md:flex space-x-6 lg:space-x-8 text-base text-gray-300">
               <a href="lounarailtp.html" class="hover:text-yellow-400 transition-colors">Accueil</a>
-              <a href="prestation.html" class="hover:text-yellow-400 transition-colors font-medium">Prestations</a>
-              <a href="location.html" class="hover:text-yellow-400 transition-colors font-medium">Location</a>
               <a href="formations.html" class="hover:text-yellow-400 transition-colors font-medium">Formations</a>
               <a href="lounarailtp.html#contact" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
             </div>
@@ -148,8 +102,6 @@
         <div id="mobile-menu" class="hidden md:hidden mt-4">
           <div class="px-2 pt-2 pb-3 space-y-2 sm:px-3 flex flex-col bg-black/50 backdrop-blur-md rounded-lg border border-white/10">
             <a href="lounarailtp.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Accueil</a>
-            <a href="prestation.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Prestations</a>
-            <a href="location.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Location</a>
             <a href="formations.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Formations</a>
             <a href="lounarailtp.html#contact" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Contact</a>
             <div class="border-t border-white/10 my-2"></div>
@@ -164,10 +116,10 @@
       <!-- Header Section -->
       <header class="text-center mb-16">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter mb-4">
-          NOTRE <span class="gradient-text italic font-semibold">SAVOIR-FAIRE FERROVIAIRE</span> À VOTRE SERVICE
+          Notre <span class="gradient-text italic font-semibold">Savoir-Faire</span> à Votre Service
         </h1>
         <p class="text-gray-300 max-w-3xl mx-auto text-lg italic">
-          Plus qu'une simple prestation, nous apportons des solutions agiles et une expertise technique de haut niveau pour sécuriser, optimiser et garantir le succès de vos projets.
+          Chez Louna Rail TP, nous combinons expertise technique, connaissance approfondie du terrain et un engagement sans faille pour la sécurité et la qualité.
         </p>
       </header>
 
@@ -176,47 +128,17 @@
         <div class="feature-card">
           <i class="fas fa-hard-hat text-4xl text-yellow-400 mb-4"></i>
           <h3 class="text-xl font-semibold mb-2">Expertise Technique</h3>
-          <p class="text-gray-400 text-sm">Nos équipes maîtrisent les procédures les plus exigeantes pour tous types de travaux de voie, du renouvellement Voie-Ballast (RVB) aux interventions les plus spécifiques.</p>
+          <p class="text-gray-400 text-sm">Nos équipes sont formées aux dernières technologies et aux procédures les plus exigeantes du secteur ferroviaire pour une efficacité maximale.</p>
         </div>
         <div class="feature-card">
           <i class="fas fa-shield-alt text-4xl text-yellow-400 mb-4"></i>
           <h3 class="text-xl font-semibold mb-2">Sécurité & Fiabilité</h3>
-          <p class="text-gray-400 text-sm">La sécurité est au cœur de notre ADN. Chaque prestation est rigoureusement planifiée et exécutée selon des protocoles stricts pour un risque zéro.</p>
+          <p class="text-gray-400 text-sm">La sécurité est notre priorité absolue. Chaque intervention est planifiée et exécutée selon des protocoles stricts pour un risque zéro.</p>
         </div>
         <div class="feature-card">
           <i class="fas fa-handshake text-4xl text-yellow-400 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Engagement & Flexibilité</h3>
-          <p class="text-gray-400 text-sm">Nous bâtissons des relations de confiance en garantissant une écoute attentive, une grande réactivité et des solutions sur-mesure pour chaque chantier.</p>
-        </div>
-      </section>
-
-      <!-- Operator Section -->
-      <section class="mb-20">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-12">NOS OPÉRATEURS RAIL-ROUTE : L'ÉLITE AU SERVICE DE VOS CHANTIERS</h2>
-        <div class="feature-card max-w-4xl mx-auto">
-          <p class="text-gray-300 mb-6 text-center text-lg">
-            Plus que des conducteurs, nos opérateurs sont des experts aguerris, formés pour maîtriser les missions les plus complexes et les environnements les plus exigeants. Nous mettons à votre disposition une équipe certifiée qui transforme les défis techniques en succès opérationnels, garantissant une exécution précise et une sécurité sans faille.
-          </p>
-          <ul class="text-gray-300 space-y-4 mt-8">
-            <li class="flex items-start">
-              <i class="fas fa-arrow-right text-yellow-400 mt-1 mr-4"></i>
-              <div>
-                <strong class="font-semibold text-white">Certification & Habilitation :</strong> Tous nos opérateurs possèdent les habilitations requises pour les réseaux ferrés, y compris la certification <strong class="text-yellow-400">SECUFER</strong>, le CACES R482 et les autorisations de sécurité les plus strictes.
-              </div>
-            </li>
-            <li class="flex items-start">
-              <i class="fas fa-arrow-right text-yellow-400 mt-1 mr-4"></i>
-              <div>
-                <strong class="font-semibold text-white">Expertise en Milieu Complexe :</strong> Forts d'une expérience significative, ils excellent dans la réalisation de travaux de haute précision, même dans des conditions difficiles (proximité des caténaires, travaux de nuit, zones à risques).
-              </div>
-            </li>
-            <li class="flex items-start">
-              <i class="fas fa-arrow-right text-yellow-400 mt-1 mr-4"></i>
-              <div>
-                <strong class="font-semibold text-white">Engagement & Efficacité :</strong> Ils garantissent une utilisation optimale des engins, optimisent les temps d'intervention et s'engagent pleinement à la réussite et à la sécurité de vos chantiers les plus exigeants.
-              </div>
-            </li>
-          </ul>
+          <h3 class="text-xl font-semibold mb-2">Engagement Client</h3>
+          <p class="text-gray-400 text-sm">Nous construisons des relations de confiance avec nos clients en garantissant écoute, réactivité et des solutions parfaitement adaptées.</p>
         </div>
       </section>
 
@@ -286,15 +208,6 @@
         </div>
       </section>
       
-      <!-- CTA Section -->
-      <section class="mt-20 text-center">
-        <h2 class="text-2xl sm:text-3xl font-semibold mb-4">Un projet ferroviaire en vue ?</h2>
-        <p class="text-gray-300 max-w-2xl mx-auto mb-8">Discutons de vos besoins et voyons comment notre expertise peut contribuer à la réussite de votre chantier.</p>
-        <a href="lounarailtp.html#contact" class="inline-block bg-yellow-400 text-black font-bold rounded-full px-8 py-3 text-lg hover:bg-yellow-300 transition-all shadow-lg">
-          Demander un devis
-        </a>
-      </section>
-
     </main>
 
     <!-- Footer -->
@@ -313,91 +226,37 @@
                 </a>
             </div>
             <p class="text-white/40 text-xs">&copy; 2025 Louna Rail TP. Tous droits réservés.</p>
-            <div class="flex space-x-4 justify-center text-xs">
+            <div class="flex space-x-4 justify-center">
                 <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Politique de confidentialité</a>
                 <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Mentions légales</a>
-                <a href="lounarailtp.html#contact" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Contact</a>
             </div>
         </div>
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script>
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      // Gestion du menu mobile
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Espace formation redirect
-    document.querySelectorAll('.espace-formation-redirect').forEach(button => {
-      button.addEventListener('click', function() {
-        window.open('connexion.html', '_blank');
-      });
-    });
-
-    // Fullscreen image preview on hover
-    document.addEventListener('DOMContentLoaded', function() {
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      let previewImage = null;
-      let backdrop = null;
-      let hoverTimer = null; // Timer pour le délai
-
-      galleryItems.forEach(item => {
-        const imageToPreview = item.querySelector('img');
-
-        item.addEventListener('mouseenter', () => {
-          if (!imageToPreview) return;
-
-          // Démarre un timer pour afficher l'aperçu après 1 seconde
-          hoverTimer = setTimeout(() => {
-            // Create backdrop
-            backdrop = document.createElement('div');
-            backdrop.className = 'backdrop-preview';
-            document.body.appendChild(backdrop);
-
-            // Create image preview
-            previewImage = document.createElement('img');
-            previewImage.src = imageToPreview.src;
-            previewImage.className = 'image-preview-fullscreen';
-            document.body.appendChild(previewImage);
-
-            // Trigger transition
-            requestAnimationFrame(() => {
-              if(backdrop) backdrop.classList.add('active');
-              if(previewImage) previewImage.classList.add('active');
-            });
-          }, 1000); // Délai de 1000ms (1 seconde)
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
         });
+      }
 
-        item.addEventListener('mouseleave', () => {
-          // Annule le timer si la souris quitte avant la fin du délai
-          clearTimeout(hoverTimer);
-
-          // Si l'aperçu est déjà visible, le cache
-          if (previewImage) {
-            previewImage.classList.remove('active');
-            const currentPreview = previewImage;
-            currentPreview.addEventListener('transitionend', () => {
-              if (currentPreview.parentNode) {
-                currentPreview.parentNode.removeChild(currentPreview);
-              }
-            }, { once: true });
-            previewImage = null;
-          }
-          if (backdrop) {
-            backdrop.classList.remove('active');
-            const currentBackdrop = backdrop;
-            currentBackdrop.addEventListener('transitionend', () => {
-              if (currentBackdrop.parentNode) {
-                currentBackdrop.parentNode.removeChild(currentBackdrop);
-              }
-            }, { once: true });
-            backdrop = null;
+      // Redirection Espace Formation
+      document.querySelectorAll('.espace-formation-redirect').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const token = localStorage.getItem('jwt_token') || sessionStorage.getItem('jwt_token');
+          if (token) {
+            window.location.href = 'dashboard.html';
+          } else {
+            window.location.href = 'inscription.html';
           }
         });
       });
-    });
   </script>
 </body>
 </html> 

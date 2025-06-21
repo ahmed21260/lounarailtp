@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location d'Engins Rail-Route & TP | Louna Rail TP</title>
+  <meta name="description" content="Service de location d'engins ferroviaires et TP. Contactez Louna Rail TP pour une solution sur-mesure : pelles rail-route, nacelles, équipements Engcon. Disponible 24/7." />
+  <meta name="keywords" content="location engins ferroviaires, location pelle rail-route, location engins TP, Louna Rail TP, flotte rail-route, location avec opérateur, Engcon" />
+  <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { 
+      background-color: #000;
+      color: #eee; 
+      font-family: 'Manrope', Arial, sans-serif; 
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: -1;
+    }
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(to right, #facc15, #fde047, #fbbf24);
+    }
+    .contact-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .contact-card:hover {
+      box-shadow: 0 8px 32px rgba(250, 204, 21, 0.15);
+      border-color: rgba(250, 204, 21, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-black text-gray-100 font-sans leading-normal tracking-normal min-h-screen flex flex-col">
+
+    <!-- Header & Navigation -->
+    <header class="relative z-20">
+      <nav class="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+          <div class="flex-shrink-0">
+            <a href="index.html">
+              <img src="images/LOGO pelle rail.png" alt="Logo Louna Rail TP" class="h-24 md:h-32 w-auto" />
+            </a>
+          </div>
+          
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-4">
+            <div class="hidden md:flex space-x-6 lg:space-x-8 text-base text-gray-300">
+              <a href="lounarailtp.html" class="hover:text-yellow-400 transition-colors">Accueil</a>
+              <a href="prestation.html" class="hover:text-yellow-400 transition-colors">Prestations</a>
+              <a href="location.html" class="hover:text-yellow-400 transition-colors font-medium text-white">Location</a>
+              <a href="formations.html" class="hover:text-yellow-400 transition-colors">Formations</a>
+              <a href="lounarailtp.html#contact" class="hover:text-yellow-400 transition-colors">Contact</a>
+            </div>
+            <button class="espace-formation-redirect text-white text-sm border border-yellow-400/40 rounded-full px-5 py-2 hover:bg-yellow-400 hover:text-black transition-all pointer-events-auto focus:bg-yellow-400 focus:text-black shadow-lg" style="box-shadow:0 2px 12px #facc15aa;">
+              Espace Formation
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-white p-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+          <div class="px-2 pt-2 pb-3 space-y-2 sm:px-3 flex flex-col bg-black/50 backdrop-blur-md rounded-lg border border-white/10">
+            <a href="lounarailtp.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Accueil</a>
+            <a href="prestation.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Prestations</a>
+            <a href="location.html" class="block text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Location</a>
+            <a href="formations.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Formations</a>
+            <a href="lounarailtp.html#contact" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            <div class="border-t border-white/10 my-2"></div>
+            <button class="espace-formation-redirect w-full text-left text-white bg-yellow-400/20 px-3 py-2 rounded-md text-base font-medium">Espace Formation</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 py-12 md:py-16 flex-grow flex items-center">
+      <div class="w-full">
+        <!-- Header Section -->
+        <header class="text-center mb-16">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter mb-4">
+            NOTRE SERVICE DE LOCATION : <span class="gradient-text italic font-semibold">BIENTÔT DISPONIBLE EN LIGNE</span>
+          </h1>
+          <p class="text-gray-300 max-w-3xl mx-auto text-lg">
+            Nous préparons une interface dédiée pour simplifier la location de nos équipements. En attendant, notre flotte complète d'engins rail-route et TP est entièrement opérationnelle et disponible pour vos chantiers.
+          </p>
+        </header>
+
+        <!-- Contact Section -->
+        <section class="max-w-4xl mx-auto">
+          <div class="contact-card">
+            <h2 class="text-2xl font-semibold text-yellow-400 mb-4 text-center">CONTACTEZ-NOUS POUR TOUTE DEMANDE DE LOCATION</h2>
+            <p class="text-gray-300 text-center mb-8">
+              Notre équipe est à votre disposition pour analyser vos besoins et vous proposer une solution de location sur-mesure, avec ou sans opérateur.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="text-center md:text-left">
+                <h3 class="text-xl font-semibold mb-4">Notre flotte inclut :</h3>
+                <ul class="space-y-2 text-gray-300">
+                  <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-3"></i>Pelles Rail-Route de dernière génération</li>
+                  <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-3"></i>Nacelles et plateformes élévatrices</li>
+                  <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-3"></i>Équipements spécialisés (packs Engcon, etc.)</li>
+                  <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-3"></i>Disponibilité 24/7 pour vos chantiers</li>
+                </ul>
+              </div>
+              <div class="flex flex-col items-center">
+                 <a href="lounarailtp.html#contact" class="w-full max-w-xs text-center bg-yellow-400 text-black rounded-full px-8 py-4 font-bold hover:bg-yellow-300 transition-all text-lg">
+                    DEMANDER UN DEVIS
+                  </a>
+                  <p class="text-gray-400 mt-4 text-sm">Réponse rapide garantie</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full px-6 py-8 text-center border-t border-white/10">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-white/40 text-sm">© 2025 Louna Rail TP. Tous droits réservés.</p>
+        <div class="flex justify-center space-x-4 mt-4">
+          <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors">Politique de confidentialité</a>
+          <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors">Mentions légales</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Espace formation redirect
+    document.querySelectorAll('.espace-formation-redirect').forEach(button => {
+      button.addEventListener('click', function() {
+        window.open('connexion.html', '_blank');
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 # Charger les variables d'environnement depuis .env
 load_dotenv()
 
+# Obtenir le chemin absolu du répertoire du projet
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 class Config:
     # Configuration email Louna Rail TP
     SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
@@ -13,12 +16,15 @@ class Config:
     RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL', 'contact@lounarailtp.com')
     
     # Configuration du serveur
-    SECRET_KEY = os.getenv('SECRET_KEY', 'lounarailtp-secret-key-2025')
-    DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'une-super-cle-secrete-difficile-a-deviner'
+    DEBUG = os.environ.get('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
     
     # Configuration du domaine
     DOMAIN = 'lounarailtp.com'
     SITE_NAME = 'Louna Rail TP'
+    
+    # Configuration de la base de données
+    DATABASE = os.path.join(basedir, 'lounarail_final.db')
     
     @classmethod
     def get_email_config(cls):
