@@ -1,0 +1,23 @@
+# SYSTÈME DE SURVEILLANCE LOUNA RAIL TP
+# © 2025 Ahmed Chaira - Tous droits réservés
+
+# Framework web
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# Gestion des variables d'environnement
+python-dotenv==1.0.0
+Werkzeug==2.3.7
+
+# Base de données
+sqlite3
+
+# Email
+smtplib
+
+# Logging et utilitaires
+logging
+datetime
+json
+os
+sys 

@@ -90,4 +90,11 @@ function showToast(message, type = 'info') {
         toast.style.display = 'none';
         toast.remove();
     }, 3000);
-} 
+}
+
+// Désactivation du clic droit sur les images pour empêcher leur enregistrement
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName.toLowerCase() === 'img') {
+        e.preventDefault();
+    }
+}, false); 

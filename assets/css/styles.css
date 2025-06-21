@@ -8,6 +8,10 @@ body {
     background: black;
     overflow: hidden;
     font-family: 'Manrope', -apple-system, system-ui, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #globe-container {
@@ -201,4 +205,10 @@ canvas {
     border-radius: 50%;
     pointer-events: none;
     opacity: 0;
+}
+
+/* Protection contre la copie d'images et sélection de texte */
+img {
+    pointer-events: none;
+    user-select: none;
 } 

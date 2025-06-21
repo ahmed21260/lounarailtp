@@ -2,38 +2,27 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "api/surveillance.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.py"
+      "dest": "/api/surveillance.py"
     }
   ],
   "env": {
-    "FLASK_ENV": "production"
-  },
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 30
-    }
+    "SMTP_SERVER": "smtp.gmail.com",
+    "SMTP_PORT": "587",
+    "SENDER_EMAIL": "lounarailtp@gmail.com",
+    "SENDER_PASSWORD": "eulgeerftlkvdhaq",
+    "RECIPIENT_EMAIL": "lounarailtp@gmail.com",
+    "DASHBOARD_USERNAME": "admin",
+    "DASHBOARD_PASSWORD_HASH": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "SESSION_SECRET": "lounarailtp-secret-key-2025-surveillance",
+    "ALERT_ENABLED": "true",
+    "CORS_ENABLED": "true",
+    "ALLOWED_ORIGINS": "*"
   }
 } 
