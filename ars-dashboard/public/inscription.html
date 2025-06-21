@@ -141,15 +141,9 @@
     </div>
     
     <form id="registerForm" autocomplete="off" class="space-y-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="form-group">
-          <label class="form-label" for="first_name">Prénom</label>
-          <input type="text" id="first_name" name="first_name" class="form-control" required placeholder="Votre prénom" />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="last_name">Nom</label>
-          <input type="text" id="last_name" name="last_name" class="form-control" required placeholder="Votre nom" />
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Nom complet</label>
+        <input type="text" id="name" name="name" class="form-control" required placeholder="Prénom et Nom" />
       </div>
 
       <div class="form-group">
@@ -187,8 +181,13 @@
       const successDiv = document.getElementById('registerSuccess');
       const submitButton = form.querySelector('button[type="submit"]');
 
+      // Réinitialiser les messages et le bouton
       errorDiv.style.display = 'none';
+      errorDiv.textContent = '';
       successDiv.style.display = 'none';
+      successDiv.textContent = '';
+      submitButton.disabled = true;
+      submitButton.textContent = 'Création en cours...';
       
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
@@ -196,41 +195,41 @@
       if (data.password !== data.confirm_password) {
         errorDiv.textContent = "Les mots de passe ne correspondent pas.";
         errorDiv.style.display = 'block';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Créer mon compte';
         return;
       }
-
-      submitButton.disabled = true;
-      submitButton.textContent = 'Création en cours...';
 
       try {
         const response = await fetch('/api/register', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
-            first_name: data.first_name,
-            last_name: data.last_name,
+            name: data.name,
             email: data.email,
-            password: data.password
-          })
+            password: data.password,
+          }),
         });
 
         const result = await response.json();
 
-        if (response.ok) {
-          successDiv.textContent = result.message;
-          successDiv.style.display = 'block';
-          form.reset();
-          setTimeout(() => {
-            window.location.href = 'connexion.html';
-          }, 2000);
-        } else {
-          errorDiv.textContent = result.message || 'Une erreur est survenue.';
-          errorDiv.style.display = 'block';
+        if (!response.ok) {
+          throw new Error(result.message || 'Une erreur est survenue.');
         }
-      } catch (err) {
-        errorDiv.textContent = 'Erreur de connexion au serveur. Veuillez réessayer.';
+
+        successDiv.textContent = result.message + " Un email de confirmation vous a été envoyé. Vous allez être redirigé.";
+        successDiv.style.display = 'block';
+        form.reset();
+
+        setTimeout(() => {
+          window.location.href = 'connexion.html';
+        }, 3000);
+
+      } catch (error) {
+        errorDiv.textContent = error.message;
         errorDiv.style.display = 'block';
-      } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Créer mon compte';
       }
