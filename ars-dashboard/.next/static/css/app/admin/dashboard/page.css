@@ -1,0 +1,290 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/app/components/MegaDashboard.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/* Le CSS du Mega Dashboard sera placé ici */ 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #00ff88;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Effet de scan lines */
+.mega-dashboard-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 136, 0.03) 2px,
+        rgba(0, 255, 136, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.mega-dashboard-container {
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    border-radius: 20px;
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: #00ff88;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    color: #00d4ff;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.nav-tab {
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    color: #00ff88;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-tab:hover {
+    background: rgba(0, 255, 136, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.nav-tab.active {
+    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* KPI Cards */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.kpi-card {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 255, 136, 0.2);
+}
+
+.kpi-title {
+    font-size: 1.1em;
+    color: #00d4ff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.kpi-value {
+    font-size: 2.8em;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.kpi-trend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+}
+
+.kpi-trend.positive {
+    color: #00ff88;
+}
+
+.kpi-trend.negative {
+    color: #ff0080;
+}
+
+.kpi-trend svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+/* Charts */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chart-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    color: #00d4ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Data Table */
+.data-table-container {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.data-table-container h3 {
+     text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    color: #00d4ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.data-table th {
+    color: #00ff88;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.data-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(0, 255, 136, 0.05);
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.status-active {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+}
+
+.status-maintenance {
+    background: rgba(255, 165, 0, 0.2);
+    color: orange;
+}
+
+.status-offline {
+    background: rgba(255, 0, 128, 0.2);
+    color: #ff0080;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 10px 15px;
+    background: transparent;
+    border: 2px solid #ff0080;
+    border-radius: 10px;
+    color: #ff0080;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background: #ff0080;
+    color: #000;
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+}
+
+canvas {
+    max-height: 400px;
+} 

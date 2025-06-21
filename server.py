@@ -9,11 +9,9 @@ from config import Config
 import sqlite3
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
-from dotenv import load_dotenv
-from datetime import timedelta
+from datetime import timedelta, datetime
 
-# Charger les variables d'environnement
-load_dotenv()
+# Les variables sont déjà chargées par config.py
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 app.config["JWT_SECRET_KEY"] = Config.SECRET_KEY
@@ -29,6 +27,12 @@ DATABASE = Config.DATABASE
 
 # Configuration email depuis config.py
 EMAIL_CONFIG = Config.get_email_config()
+
+# Vérification de la configuration email au démarrage
+email_configured = EMAIL_CONFIG['sender_password'] and EMAIL_CONFIG['sender_password'] != ''
+print(f"Email config: {'OK' if email_configured else 'KO'}")
+if not email_configured:
+    print("   /!\\ SENDER_PASSWORD n'est pas configure dans config_surveillance.env")
 
 # --- Gestion de la base de données ---
 def get_db():
@@ -56,7 +60,7 @@ def setup_database():
         );
     ''')
     
-    print("✅ Table 'quiz_attempts' vérifiée et prête.")
+    print("DB Check: Table 'quiz_attempts' OK.")
     conn.commit()
     conn.close()
 
@@ -348,10 +352,9 @@ def contact():
 @app.route('/api/test')
 def test():
     return jsonify({
-        'status': 'OK', 
-        'message': 'Serveur opérationnel',
-        'domain': Config.DOMAIN,
-        'email_configured': bool(EMAIL_CONFIG['sender_password'])
+        "message": "API de test Louna Rail TP - OK",
+        "email_configured": email_configured,
+        "timestamp": datetime.now().isoformat()
     })
 
 @app.route('/api/enroll', methods=['POST'])
@@ -453,55 +456,11 @@ def serve_static_files(path):
     static_folder = app.static_folder or ''
     return send_from_directory(static_folder, path)
 
+# --- Démarrage du serveur ---
 if __name__ == '__main__':
-    # Créer la DB si elle n'existe pas
-    if not os.path.exists(DATABASE):
-        with app.app_context():
-            db = get_db()
-            # Schéma de la base de données
-            db.executescript('''
-                CREATE TABLE users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    email TEXT UNIQUE NOT NULL,
-                    password_hash TEXT NOT NULL,
-                    first_name TEXT,
-                    last_name TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                );
-
-                CREATE TABLE formations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    description TEXT,
-                    image_url TEXT
-                );
-
-                CREATE TABLE enrollments (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id INTEGER NOT NULL,
-                    formation_id INTEGER NOT NULL,
-                    progress INTEGER NOT NULL DEFAULT 0,
-                    completed_at TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users (id),
-                    FOREIGN KEY (formation_id) REFERENCES formations (id)
-                );
-            ''')
-            
-            # Insérer les formations de base
-            formations_data = [
-                ('CACES B1', 'Maîtrise complète des engins de chantier.', 'images/dashboard/Pelle en action.png'),
-                ('Pack Engcon', 'Devenez un expert des tiltrotateurs Engcon.', 'images/dashboard/Chantier 1.jpg'),
-                ('Sécurité Ferroviaire', 'Protocoles et meilleures pratiques de sécurité.', 'images/securite-ferroviaire.jpg')
-            ]
-            db.executemany('INSERT INTO formations (name, description, image_url) VALUES (?, ?, ?)', formations_data)
-            
-            db.commit()
-            db.close()
-            print("Base de données et tables créées et peuplées.")
-            
-    print(f"🚀 Serveur {Config.SITE_NAME} démarré sur http://localhost:5000")
-    print(f"📧 API Contact: http://localhost:5000/api/contact")
-    print(f"🧪 Test API: http://localhost:5000/api/test")
-    print(f"🌐 Domaine: {Config.DOMAIN}")
-    print(f"📮 Email configuré: {'✅' if EMAIL_CONFIG['sender_password'] else '❌'}")
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    print(f"Demarrage du serveur Louna Rail TP sur http://localhost:{os.getenv('PORT', 5000)}")
+    app.run(
+        host=os.getenv('HOST', '0.0.0.0'),
+        port=int(os.getenv('PORT', 5000)),
+        debug=Config.DEBUG
+    ) 

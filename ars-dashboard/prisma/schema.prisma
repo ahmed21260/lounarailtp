@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  inscriptions  Inscription[]
+  securityLogs  SecurityLog[]
+}
+
+model Formation {
+  id            String    @id @default(cuid())
+  title         String
+  description   String?
+  duration      Int // en heures
+  price         Float
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  inscriptions  Inscription[]
+}
+
+model Inscription {
+  id            String    @id @default(cuid())
+  userId        String
+  formationId   String
+  status        String    @default("pending") // pending, active, completed
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id])
+  formation     Formation @relation(fields: [formationId], references: [id])
+  payment       Payment?
+}
+
+model Payment {
+  id            String    @id @default(cuid())
+  inscriptionId String    @unique
+  amount        Float
+  currency      String    @default("eur")
+  status        String    // succeeded, pending, failed
+  paymentIntentId String  @unique // ID de l'intention de paiement Stripe
+  createdAt     DateTime  @default(now())
+  inscription   Inscription @relation(fields: [inscriptionId], references: [id])
+}
+
+model SecurityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  ipAddress String
+  action    String   // e.g., 'login', 'logout', 'failed_login'
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  EXECUTIVE
+}

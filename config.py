@@ -1,8 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement depuis .env
-load_dotenv()
+# Charger les variables d'environnement depuis config_surveillance.env
+# C'est le bon endroit pour le faire, pour que toutes les variables soient prêtes
+load_dotenv('config_surveillance.env')
 
 # Obtenir le chemin absolu du répertoire du projet
 basedir = os.path.abspath(os.path.dirname(__file__))

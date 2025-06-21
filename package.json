@@ -1,35 +1,37 @@
 {
   "name": "louna-rail-tp",
   "version": "1.0.0",
-  "description": "Site web professionnel de Louna Rail TP - Expert en travaux publics ferroviaires",
+  "description": "Projet Louna Rail TP - Tour de contrôle et dashboards",
   "main": "server.py",
   "scripts": {
-    "start": "python server.py",
-    "dev": "python server.py",
-    "deploy": "vercel --prod",
-    "deploy:preview": "vercel",
-    "build": "echo 'Build completed'",
-    "test": "python -m pytest"
+    "start": "concurrently \"npm:start:backend\" \"npm:start:frontend\"",
+    "start:backend": "python server.py",
+    "start:frontend": "cd ars-dashboard && npm run start",
+    "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "python server.py",
+    "dev:frontend": "cd ars-dashboard && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "rail",
-    "ferroviaire",
-    "travaux-publics",
-    "formation",
-    "caces",
-    "flask",
-    "python"
+    "lounarail",
+    "dashboard",
+    "surveillance"
   ],
-  "author": "Louna Rail TP",
-  "license": "MIT",
-  "engines": {
-    "node": ">=14.0.0"
+  "author": "Ahmed Chaira",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "chart.js": "^4.4.3",
+    "cheerio": "^1.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "sqlite3": "^5.1.7"
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lounarailtp/website.git"
-  },
-  "homepage": "https://lounarailtp.com"
-} 
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.3"
+  }
+}

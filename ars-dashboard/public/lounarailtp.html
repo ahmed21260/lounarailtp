@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Louna Rail TP | Prestations, Location & Formation Ferroviaire</title>
+  <meta name="description" content="Louna Rail TP : Votre expert en prestations, location d'engins rail-route et formation pour pelleur ferroviaire. Nous offrons des solutions sur-mesure pour tous vos chantiers. Obtenez un devis rapide." />
+  <meta name="keywords" content="travaux publics ferroviaires, location pelle rail-route, formation pelleur ferroviaire, CACES, sécurité ferroviaire, maintenance voies ferrées, Louna Rail TP" />
+  <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    [data-v-cloak] {
+      display: none;
+    }
+    .spline-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+      z-index: -1;
+      opacity: 1;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      background: #0a0a0a;
+      position: relative;
+    }
+    
+    /* Effet grain subtil */
+    body::before {
+      content: none;
+    }
+    
+    /* Bulles 3D animées */
+    .bubbles-container {
+      display: none;
+    }
+    
+    .bubble {
+      display: none;
+    }
+    
+    @keyframes float {
+      0% { }
+      100% { }
+    }
+    
+    .pointer-events-none {
+      pointer-events: none;
+    }
+    .pointer-events-auto {
+      pointer-events: auto;
+    }
+    
+    /* Spline container avec z-index ajusté */
+    .spline-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    
+    /* Contenu principal avec z-index élevé */
+    .main-content {
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s forwards;
+    }
+    .fade-in.delay-1 { animation-delay: 0.2s; }
+    .fade-in.delay-2 { animation-delay: 0.4s; }
+    .fade-in.delay-3 { animation-delay: 0.6s; }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    
+    /* Groupes accordéon */
+    .accordion-group {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin: 20px 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .accordion-group::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(250, 204, 21, 0.1) 0%, rgba(250, 204, 21, 0.03) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .accordion-group:hover::after {
+      opacity: 1;
+    }
+    
+    .accordion-header {
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(250, 204, 21, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .accordion-header:hover {
+      background: rgba(255, 193, 7, 0.05);
+    }
+    
+    .accordion-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .accordion-icon {
+      width: 24px;
+      height: 24px;
+      color: #fbbf24;
+      transition: transform 0.3s ease;
+    }
+    
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
+    
+    .accordion-content.active {
+      max-height: 1000px;
+    }
+    
+    .accordion-body {
+      padding: 32px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+    }
+    
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: #000;
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      animation: slideInRight 0.3s ease;
+      border-left: 4px solid #fbbf24;
+    }
+    
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .toast.success {
+      border-left-color: #10b981;
+    }
+    
+    .toast.error {
+      border-left-color: #ef4444;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .accordion-header {
+        padding: 20px 24px;
+      }
+      
+      .accordion-title {
+        font-size: 1.25rem;
+      }
+      
+      .accordion-body {
+        padding: 24px;
+      }
+      
+      .toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        right: auto;
+      }
+    }
+
+    /* Ajout styles harmonisés formations */
+    .bg-glass {
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+    }
+    .border-glass-yellow {
+      border: 1.5px solid rgba(250,204,21,0.3);
+    }
+    .text-glass-yellow {
+      color: #fde047;
+    }
+    .text-glass-gray {
+      color: #e5e7eb;
+    }
+
+    @keyframes logo-fade {
+      0% { opacity: 0; transform: scale(0.8); }
+      60% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .animate-logo-fade {
+      animation: logo-fade 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Effet Flipboard/Split-flap */
+    .flipboard-number {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+      min-width: 40px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .flipboard-number.animate {
+      animation: flipboard-flip 0.08s ease-in-out;
+    }
+
+    @keyframes flipboard-flip {
+      0% { transform: rotateX(0deg); }
+      50% { transform: rotateX(90deg); }
+      100% { transform: rotateX(0deg); }
+    }
+
+    .flipboard-container {
+      perspective: 1000px;
+    }
+
+    /* Ajout d'effets de lumière */
+    .glow-effect {
+      position: relative;
+    }
+    
+    .glow-effect::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(250, 204, 21, 0.15) 0%, rgba(250, 204, 21, 0.05) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes fade-in-delay {
+        0% { opacity: 0; transform: translateY(10px); }
+        50% { opacity: 0; transform: translateY(10px); } /* Délai */
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-delay {
+        animation: fade-in-delay 2s ease-out forwards;
+    }
+
+    .realisation-card {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: rgba(0,0,0,0.2);
+    }
+    .realisation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        border-color: rgba(250, 204, 21, 0.3);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <!-- Contenu principal du site -->
+  <div id="main-content" data-v-cloak>
+    <!-- Spline Background -->
+    <div class="spline-bg">
+      <iframe src='https://my.spline.design/glassmorphlandingpage-nyOS3MRrg0GCft1x8mCtqPwk/' frameborder='0' width='100%' height='100%'></iframe>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="container mx-auto px-4 sm:px-6 py-4 sm:py-6 relative z-10">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex-shrink-0">
+          <a href="index.html">
+            <img src="images/LOGO pelle rail.png" alt="Logo Louna Rail TP" class="h-24 md:h-32 w-auto animate-logo-fade" style="display:block;background:none;" />
+          </a>
+        </div>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-4">
+          <div class="hidden md:flex space-x-6 lg:space-x-8 text-base text-gray-300">
+            <a href="#accueil" class="hover:text-yellow-400 transition-colors focus:text-yellow-400 font-medium">Accueil</a>
+            <a href="prestation.html" class="hover:text-yellow-400 transition-colors focus:text-yellow-400 font-medium">Prestations</a>
+            <a href="location.html" class="hover:text-yellow-400 transition-colors focus:text-yellow-400 font-medium">Location</a>
+            <a href="formations.html" class="hover:text-yellow-400 transition-colors focus:text-yellow-400 font-medium">Formation</a>
+            <a href="#contact" class="hover:text-yellow-400 transition-colors focus:text-yellow-400 font-medium">Contact</a>
+        </div>
+          <button class="espace-formation-redirect text-white text-sm border border-yellow-400/40 rounded-full px-5 py-2 hover:bg-yellow-400 hover:text-black transition-all pointer-events-auto focus:bg-yellow-400 focus:text-black shadow-lg" style="box-shadow:0 2px 12px #facc15aa;">
+            Espace Formation
+          </button>
+          <a href="#contact" class="text-white text-sm bg-yellow-400/90 text-black rounded-full px-5 py-2 hover:bg-yellow-400 transition-all pointer-events-auto focus:bg-yellow-400 shadow-lg">
+          Nous joindre
+        </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="text-white p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-4">
+        <div class="px-2 pt-2 pb-3 space-y-2 sm:px-3 flex flex-col bg-black/50 backdrop-blur-md rounded-lg border border-white/10">
+          <a href="#accueil" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Accueil</a>
+          <a href="prestation.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Prestations</a>
+          <a href="location.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Location</a>
+          <a href="formations.html" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Formation</a>
+          <a href="#contact" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+          <div class="border-t border-white/10 my-2"></div>
+          <button class="espace-formation-redirect w-full text-left text-white bg-yellow-400/20 px-3 py-2 rounded-md text-base font-medium">Espace Formation</button>
+          <a href="#contact" class="block text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-base font-medium">Nous joindre</a>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="h-px bg-gradient-to-r from-transparent via-yellow-400/10 to-transparent"></div>
+    
+    <!-- Section Hero -->
+    <section class="px-6 max-w-6xl mx-auto mt-20 md:mt-32 fade-in delay-1 text-center flex flex-col items-center justify-center bg-glass border-glass-yellow rounded-2xl shadow-lg" id="accueil" aria-label="Section d'introduction">
+      <div class="md:max-w-2xl w-full flex flex-col items-center justify-center mx-auto">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight text-center w-full mx-auto">
+          Louna Rail TP&nbsp;: <span class="font-semibold text-glass-yellow">Solutions Travaux Publics, Ferroviaires, Formations & Location</span>
+        </h1>
+        <p class="text-glass-gray mt-6 text-lg text-center w-full mx-auto">
+          Nous mettons notre expertise technique et notre connaissance approfondie du terrain au service de vos chantiers les plus exigeants. Notre engagement : la sécurité, la qualité, et la réussite de vos projets de travaux sur voies.
+        </p>
+        <!-- Bloc images pelles -->
+        <div class="relative flex flex-col items-center justify-center mt-12 mb-8 w-full">
+          <div class="relative z-10 flex flex-col md:flex-row items-center justify-between w-full">
+            <img src="images/Pelle Mecala 216 M.png" alt="Pelle Mecalac 216M" class="w-40 md:w-56 drop-shadow-2xl transition-transform hover:scale-110" style="filter: drop-shadow(0 0 32px #fde047);" loading="lazy" />
+            <img src="images/1404 ENCO.png" alt="Pelle 1404 ENCO" class="w-40 md:w-56 drop-shadow-2xl transition-transform hover:scale-110" style="filter: drop-shadow(0 0 32px #fde047);" loading="lazy" />
+            <img src="images/CAT 323.png" alt="Pelle CAT 323M" class="w-40 md:w-56 drop-shadow-2xl transition-transform hover:scale-110" style="filter: drop-shadow(0 0 32px #fde047);" loading="lazy" />
+          </div>
+        </div>
+        
+        <div class="mt-10 flex flex-wrap gap-4 justify-center w-full">
+          <a href="#contact" data-open-accordion="contact" class="bg-transparent border border-white/20 text-white rounded-full px-7 py-3 text-sm font-medium hover:bg-white/10 transition-all pointer-events-auto focus:bg-white/10" tabindex="0">
+            OBTENIR UN DEVIS GRATUIT
+          </a>
+          <a href="#prestations" data-open-accordion="prestations" class="bg-transparent border border-white/20 text-white rounded-full px-7 py-3 text-sm font-medium hover:bg-white/10 transition-all pointer-events-auto focus:bg-white/10" tabindex="0">
+            Voir nos prestations
+          </a>
+          <button class="espace-formation-redirect bg-transparent border border-white/20 text-white rounded-full px-7 py-3 text-sm font-medium hover:bg-white/10 transition-all pointer-events-auto focus:bg-white/10" tabindex="0">
+            Espace Formation
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-8 mt-20 text-white fade-in delay-2 w-full justify-center">
+          <div class="text-center">
+            <p class="text-2xl font-light flipboard-number" data-target="10">0</p>
+            <p class="text-white/50 text-sm mt-1">d'expérience terrain</p>
+          </div>
+          <div class="text-center">
+            <p class="text-2xl font-light flipboard-number" data-target="280">0</p>
+            <p class="text-white/50 text-sm mt-1">chantiers ferroviaires</p>
+          </div>
+          <div class="text-center">
+            <p class="text-2xl font-light flipboard-number" data-target="5">0</p>
+            <p class="text-white/50 text-sm mt-1">étoiles</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections accordéon -->
+    <section class="px-6 max-w-4xl mx-auto mt-32 py-12 fade-in delay-2">
+      
+      <h2 class="sr-only">Nos Domaines d'Expertise</h2>
+      
+      <!-- Groupe Prestations -->
+      <div class="accordion-group glow-effect" id="prestations">
+        <div class="accordion-header cursor-pointer" data-accordion-target="#prestations-content" onclick="toggleAccordion('prestations')">
+          <h3 class="accordion-title text-xl">
+            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            Nos Prestations
+          </h3>
+          <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <div class="accordion-content" id="prestations-content">
+          <div class="accordion-body">
+            <p class="text-sm text-gray-300 mb-6">Chez Louna Rail TP, nous mettons notre expertise technique et notre connaissance approfondie du terrain au service de vos chantiers les plus exigeants. Notre engagement : la sécurité, la qualité, et la réussite de vos projets de travaux sur voies.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Renouvellement Voie-Ballast (RVB)</h4>
+                <p class="text-sm text-gray-300">De haute précision pour moderniser vos infrastructures ferroviaires</p>
+          </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Chantiers Grand Paris Express</h4>
+                <p class="text-sm text-gray-300">Et projets d'envergure avec expertise technique pointue</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Pose et maintenance de voies</h4>
+                <p class="text-sm text-gray-300">Interventions spécialisées selon les normes les plus strictes</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Grutage ferroviaire spécialisé</h4>
+                <p class="text-sm text-gray-300">Manutention de précision pour vos chantiers complexes</p>
+              </div>
+            </div>
+            <div class="cta-container mt-4">
+              <a href="prestation.html" class="bg-yellow-400 text-black rounded-full px-6 py-2 text-sm font-medium hover:bg-yellow-300 transition-all">
+                DÉCOUVRIR NOS PRESTATIONS
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Groupe Location -->
+      <div class="accordion-group glow-effect" id="location">
+        <div class="accordion-header cursor-pointer" data-accordion-target="#location-content" onclick="toggleAccordion('location')">
+          <h3 class="accordion-title text-xl">
+            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Location d'Engins Rail-Route
+          </h3>
+          <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <div class="accordion-content" id="location-content">
+          <div class="accordion-body">
+            <p class="text-sm text-gray-300 mb-6">Notre flotte d'engins rail-route de dernière génération est à votre disposition pour tous vos chantiers ferroviaires. Pelles mécaniques, grues mobiles, engins spécialisés - chaque machine est entretenue selon les standards les plus exigeants pour garantir performance et sécurité.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Engins certifiés</h4>
+                <p class="text-sm text-gray-300">Conformes aux normes ferroviaires les plus strictes</p>
+          </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Équipements de pointe</h4>
+                <p class="text-sm text-gray-300">Avec technologies Engcon pour une précision maximale</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Maintenance préventive</h4>
+                <p class="text-sm text-gray-300">Et réactive pour une disponibilité optimale</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Flexibilité d'utilisation</h4>
+                <p class="text-sm text-gray-300">24h/24 et 7j/7 selon vos besoins</p>
+              </div>
+            </div>
+            <div class="cta-container mt-4">
+              <a href="#contact" class="bg-yellow-400 text-black rounded-full px-6 py-2 text-sm font-medium hover:bg-yellow-300 transition-all">
+                RÉSERVER UN ENGIN
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Groupe Formation -->
+      <div class="accordion-group glow-effect" id="formation">
+        <div class="accordion-header cursor-pointer" data-accordion-target="#formation-content" onclick="toggleAccordion('formation')">
+          <h3 class="accordion-title text-xl">
+            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            Formations Ferroviaires
+          </h3>
+          <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <div class="accordion-content" id="formation-content">
+          <div class="accordion-body">
+            <p class="text-sm text-gray-300 mb-6">Que vous souhaitiez obtenir une certification CACES, maîtriser des équipements de pointe comme le pack Engcon, ou simplement perfectionner votre art du rail-route, nous avons le parcours qu'il vous faut. Rejoignez-nous pour un accompagnement sur-mesure vers la maîtrise.</p>
+            <div class="bg-yellow-400/10 border border-yellow-400/20 rounded-lg p-4 mb-6">
+              <p class="text-sm text-yellow-300 font-medium">📋 <strong>Qualification Qualiopi en cours</strong> - Bientôt éligible CPF et OPCO pour le financement de vos formations</p>
+          </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">CACES R482</h4>
+                <p class="text-sm text-gray-300">Conduite d'engins rail-route certifiante</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Pack Engcon</h4>
+                <p class="text-sm text-gray-300">Maîtrise des tiltrotateurs de pointe</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Perfectionnement sécurité</h4>
+                <p class="text-sm text-gray-300">Formation continue et recyclage</p>
+              </div>
+              <div class="bg-black/20 p-4 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">Formation sur-mesure</h4>
+                <p class="text-sm text-gray-300">Intra-entreprise et adaptée à vos besoins</p>
+              </div>
+            </div>
+            <div class="cta-container mt-4">
+              <a href="formations.html" class="bg-yellow-400 text-black rounded-full px-6 py-2 text-sm font-medium hover:bg-yellow-300 transition-all">
+                S'INSCRIRE À UNE FORMATION
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Groupe Contact -->
+      <div class="accordion-group glow-effect" id="contact" style="position:relative; overflow:hidden;">
+        <!-- Décor interrogation 3D -->
+        <img src="images/interrogation 1.png" alt="Décor interrogation" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:60%; max-width:420px; opacity:0.18; filter: blur(2px); z-index:0; pointer-events:none;" />
+        <div class="accordion-header cursor-pointer" data-accordion-target="#contact-content" onclick="toggleAccordion('contact')">
+          <h3 class="accordion-title text-xl">
+            <svg class="w-6 h-6 mr-3 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            Contact & Devis Rapide
+          </h3>
+          <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <div class="accordion-content" id="contact-content">
+          <div class="accordion-body" style="position:relative; z-index:1;">
+            <p class="text-sm text-gray-300 mb-4">Vous avez un projet ferroviaire ? Une question sur nos formations ? Besoin d'un devis pour la location d'engins ? Notre équipe d'experts est à votre disposition pour vous accompagner dans toutes vos démarches.</p>
+            <form id="contactForm" autocomplete="off" class="space-y-4">
+              <div>
+                <label for="nom" class="block mb-2 text-white/80">Nom</label>
+                <input id="nom" name="nom" type="text" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required />
+              </div>
+              <div>
+                <label for="email" class="block mb-2 text-white/80">Email</label>
+                <input id="email" name="email" type="email" placeholder="lounarailtp@gmail.com" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required />
+              </div>
+              <div>
+                <label for="message" class="block mb-2 text-white/80">Message</label>
+                <textarea id="message" name="message" rows="4" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required></textarea>
+              </div>
+              <button type="submit" class="bg-yellow-400 text-black rounded-full px-8 py-3 text-sm font-medium hover:bg-yellow-300 transition-all focus:bg-yellow-300 w-full">
+                OBTENIR UN DEVIS GRATUIT
+              </button>
+              <p class="text-xs text-gray-400 mt-2">En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour vous recontacter. Aucune donnée n'est transmise à des tiers. <a href="politique-confidentialite.html" class="underline hover:text-yellow-400">En savoir plus</a>.</p>
+            </form>
+            <!-- Carte de visite -->
+            <div class="flex justify-center mt-10">
+              <img src="images/Grey Simple Business Email Signature.png" alt="Carte de visite LRTP" style="max-width:340px; width:100%; border-radius:16px; box-shadow:0 4px 24px #0002;" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast notifications -->
+    <div id="toast" class="toast">
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+          <div class="font-bold" id="toast-title">Notification</div>
+          <div class="text-sm" id="toast-message">Message de notification</div>
+        </div>
+        <button onclick="hideToast()" class="ml-4 text-gray-500 hover:text-black text-xl font-bold">&times;</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full px-6 pointer-events-auto text-center mt-8" aria-label="Pied de page">
+      <div class="max-w-6xl mx-auto flex flex-col items-center justify-center gap-4">
+        <!-- Social Icons -->
+        <div class="flex space-x-6 justify-center">
+            <a href="https://www.linkedin.com/in/ahmed-chaira-0715011ba/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-white transition-colors" aria-label="LinkedIn">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="text-white/40 hover:text-white transition-colors" aria-label="TikTok">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+            <a href="https://wa.me/33610267800" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-white transition-colors" aria-label="WhatsApp">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.89-5.451 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.096l-.534 1.958 1.984-.524zm-2.483-5.605c-.078-.12-.273-.12-.351-.12-.078 0-.195 0-.312 0-.117 0-.273.04-.429.12-.195.078-.429.273-.585.429-.156.156-.312.351-.39.507-.078.156-.156.312-.156.468 0 .156.039.312.117.468.117.234.351.507.546.742.195.234.429.507.703.781.273.273.585.585.936.859.351.273.703.507 1.092.703.39.195.742.312 1.131.429.39.117.819.156 1.287.117.507-.039.936-.234 1.287-.468.351-.234.585-.507.742-.819.156-.312.234-.663.234-1.014 0-.351-.078-.663-.234-.936-.156-.273-.39-.468-.663-.585-.273-.117-.507-.156-.703-.156-.195 0-.429.039-.624.156-.195.117-.351.234-.507.39-.156.156-.273.273-.351.351-.078.078-.156.117-.195.117-.039 0-.117-.039-.156-.117-.039-.078-.234-.273-.429-.507-.195-.234-.351-.429-.507-.585-.156-.156-.273-.312-.351-.429-.078-.117-.117-.195-.117-.273s0-.156.039-.234z"/></svg>
+            </a>
+        </div>
+        <p class="text-white/40 text-xs">© 2025 Louna Rail TP. Tous droits réservés.</p>
+        <div class="flex space-x-4 justify-center">
+          <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Politique de confidentialité</a>
+          <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Mentions légales</a>
+          <a href="/admin/login" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Accès Admin</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  <script>
+    // Configuration EmailJS
+    (function() {
+      emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+    })();
+
+    // Accordéon interactif
+    function toggleAccordion(id) {
+      const content = document.getElementById(id + '-content');
+      const icon = content.previousElementSibling.querySelector('.accordion-icon:last-child');
+      
+      if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        // Fermer tous les autres accordéons
+        document.querySelectorAll('.accordion-content').forEach(acc => {
+          acc.classList.remove('active');
+          acc.previousElementSibling.querySelector('.accordion-icon:last-child').style.transform = 'rotate(0deg)';
+        });
+        
+        // Ouvrir celui-ci
+        content.classList.add('active');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Toast notifications
+    function showToast(title, message, type = 'info') {
+      const toast = document.getElementById('toast');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMessage = document.getElementById('toast-message');
+      
+      toast.className = `toast ${type}`;
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
+      
+      toast.style.display = 'block';
+      
+      setTimeout(() => {
+        hideToast();
+      }, 5000);
+    }
+
+    function hideToast() {
+      document.getElementById('toast').style.display = 'none';
+    }
+
+    // Gestion du formulaire de contact
+    document.addEventListener('DOMContentLoaded', function() {
+      // Logique de redirection intelligente pour l'espace formation
+      const formationRedirectBtns = document.querySelectorAll('.espace-formation-redirect');
+      formationRedirectBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const token = localStorage.getItem('jwt_token') || sessionStorage.getItem('jwt_token');
+          if (token) {
+            window.location.href = 'dashboard.html';
+          } else {
+            window.location.href = 'inscription.html';
+          }
+        });
+      });
+
+      // Gestion du menu mobile
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Animation Flipboard pour les chiffres
+      function animateFlipboardNumbers() {
+        const numbers = document.querySelectorAll('.flipboard-number');
+        
+        numbers.forEach((numberElement, index) => {
+          const target = parseInt(numberElement.getAttribute('data-target'));
+          const duration = 1500; // 1.5 secondes
+          const steps = 20; // Réduire le nombre d'étapes pour un effet plus rapide
+          const stepDuration = duration / steps;
+          let current = 0;
+          
+          // Délai progressif pour chaque nombre
+          setTimeout(() => {
+            const interval = setInterval(() => {
+              current += Math.ceil(target / steps);
+              
+              if (current >= target) {
+                current = target;
+                clearInterval(interval);
+              }
+              
+              // Ajouter l'effet de flip
+              numberElement.classList.remove('animate');
+              void numberElement.offsetWidth; // Force reflow
+              numberElement.classList.add('animate');
+              
+              // Mettre à jour le texte
+              if (index === 0) {
+                numberElement.textContent = `+${current} ans`;
+              } else {
+                numberElement.textContent = `+${current}`;
+              }
+            }, stepDuration);
+          }, index * 100); // Réduire le délai entre chaque nombre à 100ms
+        });
+      }
+      
+      // Démarrer l'animation quand la section est visible
+      const flipboardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateFlipboardNumbers();
+            flipboardObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      const statsSection = document.querySelector('.grid.grid-cols-3');
+      if (statsSection) {
+        flipboardObserver.observe(statsSection);
+      }
+      
+      const contactForm = document.querySelector('#contact form');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(contactForm);
+          const nom = formData.get('nom');
+          const email = formData.get('email');
+          const message = formData.get('message');
+          
+          // Validation
+          if (!nom || !email || !message) {
+            showToast('Erreur', 'Veuillez remplir tous les champs obligatoires.', 'error');
+            return;
+          }
+          
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            showToast('Erreur', 'Veuillez entrer une adresse email valide.', 'error');
+            return;
+          }
+          
+          // Désactiver le bouton
+          const submitButton = contactForm.querySelector('button[type="submit"]');
+          const originalText = submitButton.textContent;
+          submitButton.textContent = 'Envoi en cours...';
+          submitButton.disabled = true;
+          
+          try {
+            // Envoi vers l'API backend
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                nom: nom,
+                email: email,
+                message: message
+              })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              showToast('Succès', 'Votre message a été envoyé avec succès vers lounarailtp@gmail.com !', 'success');
+              contactForm.reset();
+            } else {
+              showToast('Erreur', result.message, 'error');
+            }
+            
+          } catch (error) {
+            console.error('Erreur lors de l\'envoi:', error);
+            showToast('Erreur', 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
+          } finally {
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+          }
+        });
+      }
+      
+      // Navigation smooth scroll
+      const navLinks = document.querySelectorAll('a[href^="#"]');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            targetSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+      
+      // Animation au scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      const animatedElements = document.querySelectorAll('.fade-in');
+      animatedElements.forEach(el => {
+        observer.observe(el);
+      });
+      
+    });
+
+    document.querySelectorAll('[data-open-accordion]').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const id = btn.getAttribute('data-open-accordion');
+        setTimeout(() => {
+          if (typeof toggleAccordion === 'function') {
+            toggleAccordion(id);
+          }
+        }, 200);
+      });
+    });
+
+    /*
+    // Animation bandeau actu (marquee moderne) - CODE MIS EN COMMENTAIRE CAR INUTILISÉ
+    const actuTexts = [
+      "Nouveau : Pack Engcon disponible !",
+      "Sécurité avant tout !",
+      "Formations certifiantes ouvertes à tous",
+      "Rejoignez la communauté des experts ferroviaires 🚄"
+    ];
+    let actuIndex = 0;
+    setInterval(() => {
+      actuIndex = (actuIndex + 1) % actuTexts.length;
+      const el = document.getElementById('actu-text');
+      if (el) el.textContent = actuTexts[actuIndex];
+    }, 4000);
+    */
+
+    // ===================================================================
+    // SCRIPT DE RENDU DYNAMIQUE POUR LES ACCORDÉONS
+    // ===================================================================
+    function renderAccordionContent() {
+      logDebug('Début du rendu des accordéons');
+      try {
+        // Cibler directement le conteneur où la galerie doit aller
+        const prestationsBody = document.querySelector('#prestations-content .accordion-body');
+        const locationsContainer = document.querySelector('#location-content .accordion-body');
+        const formationsContainer = document.querySelector('#formation-content .accordion-body');
+        
+        if (!db) {
+          throw new Error("L'objet 'db' de la base de données n'a pas été trouvé.");
+        }
+
+        // APERÇU RÉALISATIONS
+        if (prestationsBody && db.realisations && db.realisations.length > 0) {
+          const realisations = db.realisations.slice(0, 3);
+          logDebug('Affichage de la galerie des réalisations', realisations);
+          const previewHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              ${realisations.map(real => `
+                <a href="prestation.html" class="realisation-card group">
+                  <img src="${real.image}" alt="${real.title}" class="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                  <div class="p-3">
+                    <h4 class="font-semibold text-sm text-yellow-400 truncate">${real.title}</h4>
+                    <p class="text-xs text-gray-300">${real.subtitle}</p>
+                  </div>
+                </a>
+              `).join('')}
+            </div>
+          `;
+          prestationsBody.innerHTML = previewHTML + prestationsBody.innerHTML;
+        }
+
+        // Listes pour les autres sections
+        if(locationsContainer) {
+          const locations = db.products.filter(p => p.category === 'Location');
+          const list = document.createElement('ul');
+          list.className = 'space-y-3 text-sm text-gray-200';
+          list.innerHTML = locations.map(item => `<li><strong class="text-yellow-400 font-semibold">${item.name} :</strong> ${item.description}</li>`).join('');
+          locationsContainer.prepend(list);
+        }
+        if(formationsContainer) {
+          const formations = db.products.filter(p => p.category === 'Formation');
+          const list = document.createElement('ul');
+          list.className = 'space-y-3 text-sm text-gray-200';
+          list.innerHTML = formations.slice(0,3).map(item => `<li><strong class="text-yellow-400 font-semibold">${item.name} :</strong> ${item.description}</li>`).join('');
+          formationsContainer.prepend(list);
+        }
+
+        // Ajout des CTA
+        const ctaHTML = `
+          <div class="border-t border-yellow-400/10 pt-4 mt-4">
+              <div class="flex items-center gap-4 text-xs text-yellow-300 mb-4">
+                  <span><i class="fas fa-truck"></i> Déplacement National</span>
+                  <span><i class="fas fa-shield-alt"></i> Assurance & Garantie</span>
+              </div>
+        `;
+
+        const ctaPrestations = ctaHTML + `<a href="prestation.html" class="inline-block bg-yellow-400 text-black font-semibold rounded-full px-6 py-2 text-sm hover:bg-yellow-300 transition-all">Découvrir toutes nos réalisations</a></div>`;
+        document.querySelector('#prestations-content .cta-container').innerHTML = ctaPrestations;
+
+        const ctaDevis = ctaHTML + `<a href="#contact" onclick="toggleAccordion('contact')" class="inline-block bg-yellow-400 text-black font-semibold rounded-full px-6 py-2 text-sm hover:bg-yellow-300 transition-all">Demander un devis</a></div>`;
+        document.querySelector('#location-content .cta-container').innerHTML = ctaDevis;
+        
+        const ctaFormations = ctaHTML + `<a href="formations.html" class="inline-block bg-yellow-400 text-black font-semibold rounded-full px-6 py-2 text-sm hover:bg-yellow-300 transition-all">Voir toutes les formations</a></div>`;
+        document.querySelector('#formation-content .cta-container').innerHTML = ctaFormations;
+      
+      } catch (error) {
+        handleError(error, 'Rendu des accordéons');
+      }
+    }
+
+    function toggleAccordion(id) {
+        const group = document.getElementById(id);
+        if (!group) return;
+        const content = document.getElementById(id + '-content');
+        const icon = group.querySelector('.accordion-header .accordion-icon:last-child');
+
+        // Fermer tous les autres accordéons...
+        document.querySelectorAll('.accordion-content.active').forEach(activeContent => {
+            if (activeContent !== content) {
+                activeContent.classList.remove('active');
+                const activeGroup = activeContent.parentElement;
+                if(activeGroup) {
+                    const activeIcon = activeGroup.querySelector('.accordion-header .accordion-icon:last-child');
+                    if(activeIcon) activeIcon.style.transform = 'rotate(0deg)';
+                }
+            }
+        });
+        
+        // Ouvrir/fermer l'accordéon actuel
+        if (content && content.classList.contains('active')) {
+            content.classList.remove('active');
+            if(icon) icon.style.transform = 'rotate(0deg)';
+        } else if (content) {
+            content.classList.add('active');
+            if(icon) icon.style.transform = 'rotate(180deg)';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAccordionContent();
+      const params = new URLSearchParams(window.location.search);
+      const openAccordionId = params.get('open');
+      if (openAccordionId) {
+        const accordionToOpen = document.getElementById(openAccordionId);
+        if (accordionToOpen) {
+          accordionToOpen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          toggleAccordion(openAccordionId);
+        }
+      }
+
+      // Révéler le contenu une fois prêt
+      document.getElementById('main-content').removeAttribute('data-v-cloak');
+    });
+
+  </script>
+  <script src="assets/js/surveillance.js"></script>
+  <!-- Ajout de Font Awesome pour les icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="assets/js/database.js"></script>
+  <script src="assets/js/config.js"></script>
+
+  <!-- Section "À Propos" Flottante -->
+  <div id="about-button" class="fixed bottom-4 right-4 z-50 cursor-pointer">
+      <div class="bg-yellow-400 text-black w-14 h-14 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+  </div>
+
+  <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-gray-800 border border-gray-700 rounded-2xl max-w-2xl w-full p-8 relative shadow-2xl text-white transform transition-all opacity-0 -translate-y-4" id="about-modal-content">
+          <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          <h2 class="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
+          <div class="text-gray-300 space-y-4">
+              <p>Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.</p>
+              <p>Notre force réside dans notre expertise de pointe et notre parc matériel moderne, nous permettant d'intervenir sur les chantiers les plus complexes avec une efficacité maximale.</p>
+              <div>
+                  <h3 class="font-semibold text-white mb-2">Nos Prestations Clés :</h3>
+                  <ul class="list-disc list-inside space-y-1 pl-2">
+                      <li>Conduite experte de pelles rail-route et d'engins spécialisés.</li>
+                      <li>Travaux de terrassement, de nivellement et de pose de voies.</li>
+                      <li>Maintenance préventive et corrective des réseaux ferrés.</li>
+                      <li>Mise en sécurité de chantiers et gestion des circulations.</li>
+                  </ul>
+              </div>
+              <p class="pt-4 border-t border-gray-700">Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
+              <p class="text-center font-bold text-yellow-400 text-lg pt-2">Louna Rail TP : Votre Projet, sur la bonne voie.</p>
+          </div>
+      </div>
+  </div>
+
+  <!-- Bouton d'Appel d'Urgence Flottant -->
+  <div id="emergency-call-button" class="fixed bottom-4 left-4 z-50 cursor-pointer">
+      <div class="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform animate-pulse">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+      </div>
+  </div>
+  
+  <!-- Widget d'Appel d'Urgence -->
+  <div id="emergency-widget" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 hidden">
+      <div id="emergency-widget-content" class="bg-gray-800 border-2 border-red-500 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl text-white transform transition-all opacity-0 scale-95">
+           <button id="close-emergency-widget" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+          <h3 class="text-2xl font-bold text-red-500 mb-3">Intervention Urgente ?</h3>
+          <p class="text-gray-300 mb-4">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
+          <a href="tel:0601020304" class="inline-block w-full bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-xl tracking-wider hover:bg-red-500 transition-colors">
+              Appeler : 06 01 02 03 04
+          </a>
+      </div>
+  </div>
+
+  <script>
+      // --- Script pour la modale "À Propos" ---
+      const aboutButton = document.getElementById('about-button');
+      const aboutModal = document.getElementById('about-modal');
+      const aboutModalContent = document.getElementById('about-modal-content');
+      const closeButton = document.getElementById('close-modal-button');
+
+      const openModal = () => {
+          aboutModal.classList.remove('hidden');
+          setTimeout(() => {
+              aboutModalContent.classList.remove('opacity-0', '-translate-y-4');
+          }, 10);
+      };
+
+      const closeModal = () => {
+          aboutModalContent.classList.add('opacity-0', '-translate-y-4');
+          setTimeout(() => {
+              aboutModal.classList.add('hidden');
+          }, 300);
+      };
+
+      aboutButton.addEventListener('click', openModal);
+      closeButton.addEventListener('click', closeModal);
+      aboutModal.addEventListener('click', (e) => {
+          if (e.target === aboutModal) {
+              closeModal();
+          }
+      });
+
+      // --- Script pour le widget d'urgence ---
+      const emergencyButton = document.getElementById('emergency-call-button');
+      const emergencyWidget = document.getElementById('emergency-widget');
+      const emergencyWidgetContent = document.getElementById('emergency-widget-content');
+      const closeEmergencyWidgetButton = document.getElementById('close-emergency-widget');
+
+      const openEmergencyWidget = () => {
+          emergencyWidget.classList.remove('hidden');
+          setTimeout(() => {
+              emergencyWidgetContent.classList.remove('opacity-0', 'scale-95');
+          }, 10);
+      };
+
+      const closeEmergencyWidget = () => {
+          emergencyWidgetContent.classList.add('opacity-0', 'scale-95');
+          setTimeout(() => {
+              emergencyWidget.classList.add('hidden');
+          }, 300);
+      };
+
+      emergencyButton.addEventListener('click', openEmergencyWidget);
+      closeEmergencyWidgetButton.addEventListener('click', closeEmergencyWidget);
+      emergencyWidget.addEventListener('click', (e) => {
+          if (e.target === emergencyWidget) {
+              closeEmergencyWidget();
+          }
+      });
+  </script>
+</body>
+</html>
