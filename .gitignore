@@ -55,5 +55,6 @@ Thumbs.db
 *.log
 
 # Vercel
-.vercel 
+.vercel
 node_modules
+.next/

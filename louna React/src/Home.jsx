@@ -111,6 +111,63 @@ export default function Home() {
   const [form, setForm] = useState({ nom: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
 
+  // Logique de détection Clic-Droit
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+
+      // Création et affichage de l'alerte visuelle
+      const alertId = 'violation-alert';
+      if (document.getElementById(alertId)) return; // Empêche les doublons
+
+      const alertBox = document.createElement('div');
+      alertBox.id = alertId;
+      alertBox.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #ff0000;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-family: sans-serif;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        font-size: 16px;
+        line-height: 1.4;
+      `;
+      alertBox.innerHTML = `
+        <div style="font-weight: bold; font-size: 18px; margin-bottom: 5px;">🚨 VIOLATION DÉTECTÉE</div>
+        <div><strong>Type:</strong> CLIC_DROIT</div>
+        <div style="margin-top: 5px;">Enregistrée et transmise</div>
+        <div style="font-size: 12px; opacity: 0.8; margin-top: 10px;">© Louna Rail TP</div>
+      `;
+      document.body.appendChild(alertBox);
+
+      setTimeout(() => {
+        alertBox.remove();
+      }, 4000);
+
+      // Envoi de l'alerte à l'API
+      fetch('/api/security-log', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'CLIC_DROIT',
+          message: `Right-click detected on page: ${window.location.pathname}`,
+        }),
+      }).catch(error => console.warn('Failed to send security log:', error));
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
   // Toast helpers
   function showToast(title, message, type = 'info') {
     setToast({ title, message, type });
