@@ -47,9 +47,66 @@ function Bubbles() {
   return <div className="bubbles-container" ref={ref} aria-hidden />;
 }
 
+// Modal "À Propos"
+function AboutModal({ onClose }) {
+  return (
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-[1001]">
+      <div className="bg-gray-800 text-white/90 p-8 rounded-2xl shadow-2xl max-w-2xl w-full border border-yellow-400/30 relative">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
+        <h2 className="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
+        <div className="space-y-4 text-white/80">
+          <p>Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.</p>
+          <p>Notre force réside dans notre expertise de pointe et notre parc matériel moderne, nous permettant d'intervenir sur les chantiers les plus complexes avec une efficacité maximale.</p>
+          <div>
+            <h3 className="font-semibold text-white mb-2">Nos Prestations Clés :</h3>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Conduite experte de pelles rail-route et d'engins spécialisés.</li>
+              <li>Travaux de terrassement, de nivellement et de pose de voies.</li>
+              <li>Maintenance préventive et corrective des réseaux ferrés.</li>
+              <li>Mise en sécurité de chantiers et gestion des circulations.</li>
+            </ul>
+          </div>
+          <p>Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
+          <div className="border-t border-white/20 pt-4 mt-6">
+            <h4 className="font-semibold text-yellow-400">Contactez-nous :</h4>
+            <p className="mt-2">
+              Email : <a href="mailto:contact@lounarailtp.com" className="hover:underline">contact@lounarailtp.com</a><br />
+              Téléphone : <a href="tel:+33610267800" className="hover:underline">06 10 26 78 00</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Modal "Urgence"
+function EmergencyModal({ onClose }) {
+  const handleCall = () => {
+    if (window.confirm("Confirmez-vous vouloir lancer l'appel d'urgence ?")) {
+      window.location.href = "tel:+33612267800";
+    }
+  };
+  return (
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-[1001]">
+      <div className="bg-gray-800 text-white p-6 rounded-2xl shadow-2xl max-w-sm border border-red-500/50 relative">
+        <button onClick={onClose} className="absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+        <h3 className="text-2xl font-bold text-red-500 mb-2">Intervention Urgente ?</h3>
+        <p className="mb-5">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
+        <button onClick={handleCall} className="block w-full bg-red-600 text-white text-center font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors text-lg">
+          Appeler : 06 12 26 78 00
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   // Toast state
   const [toast, setToast] = useState(null);
+  // Modal states
+  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
+  const [isEmergencyModalOpen, setEmergencyModalOpen] = useState(false);
   // Form state
   const [form, setForm] = useState({ nom: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -274,6 +331,25 @@ export default function Home() {
             </div>
           </div>
         </footer>
+
+        {/* Section "À Propos" Flottante */}
+        <div onClick={() => setAboutModalOpen(true)} className="fixed bottom-4 right-4 z-50 cursor-pointer">
+            <div className="bg-yellow-400 text-black w-14 h-14 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
+        </div>
+
+        {/* Bouton d'Appel d'Urgence Flottant */}
+        <div onClick={() => setEmergencyModalOpen(true)} className="fixed bottom-4 left-4 z-50 cursor-pointer">
+            <div className="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform animate-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+        </div>
+
+        {isAboutModalOpen && <AboutModal onClose={() => setAboutModalOpen(false)} />}
+        {isEmergencyModalOpen && <EmergencyModal onClose={() => setEmergencyModalOpen(false)} />}
       </div>
       {/* Styles additionnels pour animations et glassmorphisme */}
       <style>{`

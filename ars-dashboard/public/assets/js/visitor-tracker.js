@@ -146,7 +146,7 @@ class VisitorTracker {
     
     // Envoyer les événements importants immédiatement
     if (['form_submit', 'link_click'].includes(eventType)) {
-      this.sendEventData(event);
+      // this.sendEventData(event); // Désactivé temporairement
     }
   }
 
@@ -170,6 +170,7 @@ class VisitorTracker {
 
   async sendEventData(event) {
     try {
+      /* Désactivé temporairement
       const response = await fetch('/api/events', {
         method: 'POST',
         headers: {
@@ -181,6 +182,7 @@ class VisitorTracker {
       if (!response.ok) {
         console.warn('Erreur envoi événement:', response.status);
       }
+      */
     } catch (error) {
       console.warn('Erreur envoi événement:', error);
     }
@@ -196,6 +198,7 @@ class VisitorTracker {
       };
 
       // Utiliser sendBeacon pour les données de fin de session
+      /* Désactivé temporairement
       if (navigator.sendBeacon) {
         navigator.sendBeacon('/api/sessions', JSON.stringify(sessionData));
       } else {
@@ -207,6 +210,7 @@ class VisitorTracker {
           keepalive: true
         });
       }
+      */
     } catch (error) {
       console.warn('Erreur envoi session:', error);
     }

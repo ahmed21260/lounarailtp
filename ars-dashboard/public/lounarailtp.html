@@ -3,11 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Louna Rail TP | Prestations, Location & Formation Ferroviaire</title>
-  <meta name="description" content="Louna Rail TP : Votre expert en prestations, location d'engins rail-route et formation pour pelleur ferroviaire. Nous offrons des solutions sur-mesure pour tous vos chantiers. Obtenez un devis rapide." />
-  <meta name="keywords" content="travaux publics ferroviaires, location pelle rail-route, formation pelleur ferroviaire, CACES, sécurité ferroviaire, maintenance voies ferrées, Louna Rail TP" />
+  
+  <!-- SEO Amélioré -->
+  <title>Louna Rail TP | Expert en Travaux Ferroviaires, Location d'Engins et Formation Rail-Route</title>
+  <meta name="description" content="Louna Rail TP, leader des solutions ferroviaires en France. Expertise en travaux de voies (RVB), location de pelles rail-route avec chauffeur, et formations CACES R482 et Engcon. Sécurité, fiabilité et devis rapide." />
+  <meta name="keywords" content="Louna Rail TP, travaux ferroviaires, location pelle rail-route, formation CACES R482, certification Qualiopi, pelle araignée, chauffeur, expert ferroviaire, RVB, renouvellement voie ballast, sécurité ferroviaire, maintenance voies ferrées, chantiers Grand Paris, Engcon, tiltrotateur, devis travaux ferroviaires" />
+  <meta name="author" content="Louna Rail TP" />
+  <link rel="canonical" href="https://lounarailtp.com/lounarailtp.html" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lounarailtp.com/lounarailtp.html">
+  <meta property="og:title" content="Louna Rail TP | Expert en Travaux Ferroviaires, Location & Formation">
+  <meta property="og:description" content="Solutions complètes pour le secteur ferroviaire : travaux de voies, location d'engins spécialisés et formations certifiantes.">
+  <meta property="og:image" content="https://lounarailtp.com/images/dashboard/Présentation%20banniere.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://lounarailtp.com/lounarailtp.html">
+  <meta property="twitter:title" content="Louna Rail TP | Expert en Travaux Ferroviaires, Location & Formation">
+  <meta property="twitter:description" content="Solutions complètes pour le secteur ferroviaire : travaux de voies, location d'engins spécialisés et formations certifiantes.">
+  <meta property="twitter:image" content="https://lounarailtp.com/images/dashboard/Présentation%20banniere.jpg">
+
   <link rel="icon" type="image/png" href="images/LOGO pelle rail.png" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Données Structurées JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Louna Rail TP",
+    "image": "https://lounarailtp.com/images/LOGO%20pelle%20rail.png",
+    "@id": "https://lounarailtp.com",
+    "url": "https://lounarailtp.com",
+    "telephone": "+33612972713",
+    "email": "contact@lounarailtp.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Rue du Chantier",
+      "addressLocality": "Marseille",
+      "postalCode": "13000",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 43.6825709,
+      "longitude": 5.1537834
+    },
+    "description": "Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.",
+    "hasMap": "https://maps.google.com/?cid=1979986377708309401",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    ],
+    "potentialAction": {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://lounarailtp.com/#contact",
+        "inLanguage": "fr-FR",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/IOSPlatform",
+          "http://schema.org/AndroidPlatform"
+        ]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Demander un devis"
+      }
+    },
+    "serviceType": [
+      "Travaux Ferroviaires",
+      "Location d'engins Rail-Route",
+      "Formation professionnelle ferroviaire"
+    ]
+  }
+  </script>
+
   <style>
     [data-v-cloak] {
       display: none;
@@ -596,41 +682,48 @@
         </div>
         <div class="accordion-content" id="contact-content">
           <div class="accordion-body" style="position:relative; z-index:1;">
-            <h2 class="text-3xl font-bold mb-4">Contactez-nous</h2>
-            <p class="mb-8 text-gray-400">Remplissez ce formulaire pour toute demande. Réponse rapide garantie.</p>
-            <div class="space-y-6">
+            <p class="text-sm text-gray-300 mb-4">Vous avez un projet ferroviaire ? Une question sur nos formations ? Besoin d'un devis pour la location d'engins ? Notre équipe d'experts est à votre disposition pour vous accompagner dans toutes vos démarches.</p>
+            <form id="contactForm" autocomplete="off" class="space-y-4">
               <div>
-                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nom</label>
-                <input type="text" id="name" name="name" class="w-full bg-gray-800 border-gray-700 rounded-md p-3 focus:ring-yellow-400 focus:border-yellow-400">
+                <label for="nom" class="block mb-2 text-white/80">Nom</label>
+                <input id="nom" name="nom" type="text" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required />
               </div>
               <div>
-                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                <input type="email" id="email" name="email" class="w-full bg-gray-800 border-gray-700 rounded-md p-3 focus:ring-yellow-400 focus:border-yellow-400" placeholder="vous@email.com">
+                <label for="email" class="text-sm font-medium text-white/80 mb-2 block">Email</label>
+                <input id="email" name="email" type="email" placeholder="Votre adresse email" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required>
               </div>
               <div>
-                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                <textarea id="message" name="message" rows="4" class="w-full bg-gray-800 border-gray-700 rounded-md p-3 focus:ring-yellow-400 focus:border-yellow-400"></textarea>
+                <label for="message" class="block mb-2 text-white/80">Message</label>
+                <textarea id="message" name="message" rows="4" class="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all" required></textarea>
               </div>
-            </div>
-            <h2 class="text-3xl font-bold mb-4">Nos Coordonnées</h2>
-            <p class="mb-8 text-gray-400">Pour un contact direct ou une urgence, voici nos informations.</p>
-            
-            <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-6 space-y-4">
-              <div class="flex items-center gap-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <button type="submit" class="bg-yellow-400 text-black rounded-full px-8 py-3 text-sm font-medium hover:bg-yellow-300 transition-all focus:bg-yellow-300 w-full">
+                OBTENIR UN DEVIS GRATUIT
+              </button>
+              <p class="text-sm text-white/60 mt-4">
+                En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour vous recontacter. Aucune donnée n'est transmise à des tiers. <a href="politique-confidentialite.html" class="underline hover:text-white">En savoir plus.</a>
+              </p>
+            </form>
+
+            <!-- Bloc Contact Professionnel (remplace l'image de la carte de visite) -->
+            <div class="mt-12 text-center text-white">
+              <h3 class="text-xl font-bold text-yellow-400">Nos Coordonnées</h3>
+              <p class="text-white/80 mt-2">Pour toute demande directe ou urgence.</p>
+              <div class="mt-6 space-y-4">
                 <div>
-                  <h3 class="font-semibold">Email</h3>
-                  <a href="mailto:contact@lounarailtp.com" class="text-gray-300 hover:text-yellow-400 transition-colors">contact@lounarailtp.com</a>
+                  <h4 class="text-sm font-semibold text-white/60 tracking-wider uppercase">Email</h4>
+                  <a href="mailto:contact@lounarailtp.com" class="text-lg text-white hover:text-yellow-400 transition-colors">contact@lounarailtp.com</a>
+                </div>
+                <div>
+                  <h4 class="text-sm font-semibold text-white/60 tracking-wider uppercase">Téléphone</h4>
+                  <a href="tel:+33612972713" class="text-lg text-white hover:text-yellow-400 transition-colors">+33 6 12 97 27 13</a>
+                </div>
+                <div>
+                  <h4 class="text-sm font-semibold text-white/60 tracking-wider uppercase">Zone d'intervention</h4>
+                  <p class="text-lg text-white">Toute la France</p>
                 </div>
               </div>
-              <div class="flex items-center gap-4">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <div>
-                  <h3 class="font-semibold">Téléphone</h3>
-                  <a href="tel:+33612972713" class="text-gray-300 hover:text-yellow-400 transition-colors">06 12 97 27 13</a>
-                </div>
-              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -661,16 +754,22 @@
             <a href="#" class="text-white/40 hover:text-white transition-colors" aria-label="TikTok">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
             </a>
-            <a href="https://wa.me/33610267800" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-white transition-colors" aria-label="WhatsApp">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.89-5.451 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.096l-.534 1.958 1.984-.524zm-2.483-5.605c-.078-.12-.273-.12-.351-.12-.078 0-.195 0-.312 0-.117 0-.273.04-.429.12-.195.078-.429.273-.585.429-.156.156-.312.351-.39.507-.078.156-.156.312-.156.468 0 .156.039.312.117.468.117.234.351.507.546.742.195.234.429.507.703.781.273.273.585.585.936.859.351.273.703.507 1.092.703.39.195.742.312 1.131.429.39.117.819.156 1.287.117.507-.039.936-.234 1.287-.468.351-.234.585-.507.742-.819.156-.312.234-.663.234-1.014 0-.351-.078-.663-.234-.936-.156-.273-.39-.468-.663-.585-.273-.117-.507-.156-.703-.156-.195 0-.429.039-.624.156-.195.117-.351.234-.507.39-.156.156-.273.273-.351.351-.078.078-.117-.039-.156-.117-.039-.078-.234-.273-.429-.507-.195-.234-.351-.429-.507-.585-.156-.156-.273-.312-.351-.429-.078-.117-.117-.195-.117-.273s0-.156.039-.234z"/></svg>
+            <a href="https://wa.me/33612972713" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-white transition-colors" aria-label="WhatsApp">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.89-5.451 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.096l-.534 1.958 1.984-.524zm-2.483-5.605c-.078-.12-.273-.12-.351-.12-.078 0-.195 0-.312 0-.117 0-.273.04-.429.12-.195.078-.429.273-.585.429-.156.156-.312.351-.39.507-.078.156-.156.312-.156.468 0 .156.039.312.117.468.117.234.351.507.546.742.195.234.429.507.703.781.273.273.585.585.936.859.351.273.703.507 1.092.703.39.195.742.312 1.131.429.39.117.819.156 1.287.117.507-.039.936-.234 1.287-.468.351-.234.585-.507.742-.819.156-.312.234-.663.234-1.014 0-.351-.078-.663-.234-.936-.156-.273-.39-.468-.663-.585-.273-.117-.507-.156-.703-.156-.195 0-.429.039-.624.156-.195.117-.351.234-.507.39-.156.156-.273.273-.351.351-.078.078-.117-.195-.117-.039 0-.117-.039-.156-.117-.039-.078-.234-.273-.429-.507-.195-.234-.351-.429-.507-.585-.156-.156-.273-.312-.351-.429-.078-.117-.117-.195-.117-.273s0-.156.039-.234z"/></svg>
             </a>
         </div>
-        <p class="text-white/40 text-xs">© 2025 Louna Rail TP. Tous droits réservés.</p>
-        <div class="flex space-x-4 justify-center">
-          <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Politique de confidentialité</a>
-          <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Mentions légales</a>
-          <a href="/admin/login" class="text-white/40 hover:text-white transition-colors pointer-events-auto">Accès Admin</a>
+        <p class="text-white/40 text-xs mt-4">© 2025 Louna Rail TP. Tous droits réservés.</p>
+        <p class="text-white/20 text-xs mt-2">
+          Ce site est sous surveillance technique active. Toute tentative d'intrusion ou de copie est enregistrée.
+        </p>
+        <div class="flex space-x-4 justify-center mt-4">
+          <a href="politique-confidentialite.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto text-sm">Politique de confidentialité</a>
+          <a href="mentions-legales.html" class="text-white/40 hover:text-white transition-colors pointer-events-auto text-sm">Mentions légales</a>
+          <a href="/admin/login" class="text-white/40 hover:text-white transition-colors pointer-events-auto text-sm">Accès Admin</a>
         </div>
+        <p class="text-white/20 text-[10px] mt-6">
+          Conçu et développé par Ahmed CHAIRA
+        </p>
       </div>
     </footer>
   </div>
@@ -1081,7 +1180,14 @@
                   </ul>
               </div>
               <p class="pt-4 border-t border-gray-700">Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
-              <p class="text-center font-bold text-yellow-400 text-lg pt-2">Louna Rail TP : Votre Projet, sur la bonne voie.</p>
+              
+              <div class="border-t border-white/20 pt-4 mt-6">
+                <h4 class="font-semibold text-yellow-400">Contactez-nous :</h4>
+                <p class="mt-2">
+                  Email : <a href="mailto:contact@lounarailtp.com" class="hover:underline">contact@lounarailtp.com</a><br>
+                  Téléphone : <a href="tel:+33612972713" class="hover:underline">06 12 97 27 13</a>
+                </p>
+              </div>
           </div>
       </div>
   </div>
@@ -1090,7 +1196,7 @@
   <div id="emergency-call-button" class="fixed bottom-4 left-4 z-50 cursor-pointer">
       <div class="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform animate-pulse">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
       </div>
   </div>
@@ -1103,7 +1209,7 @@
           </button>
           <h3 class="text-2xl font-bold text-red-500 mb-3">Intervention Urgente ?</h3>
           <p class="text-gray-300 mb-4">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
-          <a href="tel:+33612972713" class="inline-block w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg block text-center transition-transform hover:scale-105">
+          <a href="tel:+33612972713" onclick="return confirm('Confirmez-vous vouloir lancer l\\'appel d\\'urgence ?');" class="inline-block w-full bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-xl tracking-wider hover:bg-red-500 transition-colors">
               Appeler : 06 12 97 27 13
           </a>
       </div>
@@ -1148,6 +1254,11 @@
           emergencyWidget.classList.remove('hidden');
           setTimeout(() => {
               emergencyWidgetContent.classList.remove('opacity-0', 'scale-95');
+              // On met à jour le numéro de téléphone et on ajoute la confirmation
+              const emergencyLink = emergencyWidgetContent.querySelector('a');
+              emergencyLink.href = "tel:+33612972713";
+              emergencyLink.innerHTML = "Appeler : 06 12 97 27 13";
+              emergencyLink.onclick = () => confirm("Confirmez-vous vouloir lancer l'appel d'urgence ?");
           }, 10);
       };
 
@@ -1166,5 +1277,45 @@
           }
       });
   </script>
+
+  <!-- Pop-up d'urgence -->
+  <div id="emergency-popup" class="fixed bottom-5 right-5 bg-gray-800/80 backdrop-blur-sm text-white p-6 rounded-2xl shadow-2xl max-w-sm border border-red-500/50" style="display: none; z-index: 1000;">
+    <button id="close-popup" class="absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+    <h3 class="text-2xl font-bold text-red-500 mb-2">Intervention Urgente ?</h3>
+    <p class="mb-5">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
+    <a href="tel:+33612972713" onclick="return confirm('Confirmez-vous vouloir lancer l\\'appel d\\'urgence ?');" class="block bg-red-600 text-white text-center font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors text-lg">
+      Appeler : 06 12 97 27 13
+    </a>
+  </div>
+
+  <!-- Modal "À propos" -->
+  <div id="about-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" style="display: none; z-index: 1001;">
+    <div class="bg-gray-800 text-white/90 p-8 rounded-2xl shadow-2xl max-w-2xl w-full border border-yellow-400/30 relative">
+      <button id="close-about-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
+      <h2 class="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
+      <div class="space-y-4 text-white/80">
+        <p>Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.</p>
+        <p>Notre force réside dans notre expertise de pointe et notre parc matériel moderne, nous permettant d'intervenir sur les chantiers les plus complexes avec une efficacité maximale.</p>
+        <div>
+          <h3 class="font-semibold text-white mb-2">Nos Prestations Clés :</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li>Conduite experte de pelles rail-route et d'engins spécialisés.</li>
+            <li>Travaux de terrassement, de nivellement et de pose de voies.</li>
+            <li>Maintenance préventive et corrective des réseaux ferrés.</li>
+            <li>Mise en sécurité de chantiers et gestion des circulations.</li>
+          </ul>
+        </div>
+        <p>Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
+        
+        <div class="border-t border-white/20 pt-4 mt-6">
+          <h4 class="font-semibold text-yellow-400">Contactez-nous :</h4>
+          <p class="mt-2">
+            Email : <a href="mailto:contact@lounarailtp.com" class="hover:underline">contact@lounarailtp.com</a><br>
+            Téléphone : <a href="tel:+33612972713" class="hover:underline">06 12 97 27 13</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
