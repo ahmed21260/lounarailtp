@@ -71,7 +71,7 @@ function AboutModal({ onClose }) {
             <h4 className="font-semibold text-yellow-400">Contactez-nous :</h4>
             <p className="mt-2">
               Email : <a href="mailto:contact@lounarailtp.com" className="hover:underline">contact@lounarailtp.com</a><br />
-              Téléphone : <a href="tel:+33610267800" className="hover:underline">06 10 26 78 00</a>
+              Téléphone : <a href="tel:+33612435163" className="hover:underline">06 12 43 51 63</a>
             </p>
           </div>
         </div>
@@ -84,7 +84,7 @@ function AboutModal({ onClose }) {
 function EmergencyModal({ onClose }) {
   const handleCall = () => {
     if (window.confirm("Confirmez-vous vouloir lancer l'appel d'urgence ?")) {
-      window.location.href = "tel:+33612267800";
+      window.location.href = "tel:+33612435163";
     }
   };
   return (
@@ -94,7 +94,7 @@ function EmergencyModal({ onClose }) {
         <h3 className="text-2xl font-bold text-red-500 mb-2">Intervention Urgente ?</h3>
         <p className="mb-5">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
         <button onClick={handleCall} className="block w-full bg-red-600 text-white text-center font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors text-lg">
-          Appeler : 06 12 26 78 00
+          Appeler : 06 12 43 51 63
         </button>
       </div>
     </div>

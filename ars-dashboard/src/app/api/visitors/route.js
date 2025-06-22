@@ -141,6 +141,33 @@ export async function POST(request) {
           utmContent
         }
       });
+
+      // Envoyer une notification pour les nouveaux visiteurs
+      try {
+        await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3001'}/api/notifications`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'visitor',
+            data: {
+              country: geoData.country,
+              city: geoData.city,
+              page: pageUrl,
+              device: deviceType,
+              browser: browser,
+              ip: ip,
+              utmSource,
+              utmMedium,
+              utmCampaign
+            },
+            priority: 'normal'
+          })
+        });
+      } catch (error) {
+        console.warn('Erreur envoi notification visiteur:', error);
+      }
     }
 
     // Créer une nouvelle page vue
