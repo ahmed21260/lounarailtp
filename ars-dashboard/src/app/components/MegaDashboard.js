@@ -19,6 +19,7 @@ const MegaDashboard = () => {
             case 'analytics': return <AnalyticsTab />;
             case 'users': return <UsersTab users={stats.users} />;
             case 'surveillance': return <SurveillanceTab />;
+            case 'security': return <SecurityLogsTab />;
             default: return <OverviewTab stats={stats} />;
         }
     };
@@ -76,7 +77,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
                 <p className="nav-category">SÉCURITÉ</p>
                 <NavItem icon={<ShieldCheck size={20} />} label="Surveillance" id="surveillance" activeTab={activeTab} setActiveTab={setActiveTab} />
-                <NavItem icon={<Activity size={20} />} label="Logs Sécurité" onClick={() => router.push('/admin/dashboard/securite')} />
+                <NavItem icon={<Activity size={20} />} label="Logs Sécurité" id="security" activeTab={activeTab} setActiveTab={setActiveTab} />
             </nav>
             <div className="sidebar-footer">
                 <button onClick={() => signOut({ callbackUrl: '/admin/login' })} className="logout-btn">
@@ -234,6 +235,74 @@ const SurveillanceTab = () => {
             <button className="action-button" onClick={() => router.push('/admin/dashboard/surveillance')}>
                 Aller à la Surveillance
             </button>
+        </div>
+    );
+};
+
+const SecurityLogsTab = () => {
+    const [logs, setLogs] = useState([]);
+    const [pagination, setPagination] = useState({});
+    const [loading, setLoading] = useState(true);
+
+    const fetchLogs = async (page = 1) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/security-logs?page=${page}&limit=10`);
+            if (!response.ok) throw new Error('Failed to fetch security logs');
+            const data = await response.json();
+            setLogs(data.logs);
+            setPagination(data.pagination);
+        } catch (error) {
+            console.error("Error fetching security logs:", error);
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchLogs(1);
+    }, []);
+
+    if (loading) return <div className="loading-container"><div className="loader"></div></div>;
+
+    return (
+        <div className="tab-content-inner">
+            <div className="data-table-container">
+                <h3>Journal des Événements de Sécurité</h3>
+                <p className="text-sm text-gray-400 mb-4">Suivi des violations et des tentatives d'accès non autorisées.</p>
+                <table className="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type d'Événement</th>
+                            <th>Message</th>
+                            <th>Adresse IP</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {logs.length > 0 ? (
+                            logs.map(log => (
+                                <tr key={log.id}>
+                                    <td><span className="role-badge error">{log.type}</span></td>
+                                    <td>{log.message}</td>
+                                    <td>{log.ipAddress}</td>
+                                    <td>{new Date(log.createdAt).toLocaleString('fr-FR')}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr><td colSpan="4">Aucun log de sécurité trouvé.</td></tr>
+                        )}
+                    </tbody>
+                </table>
+                <div className="pagination-controls">
+                    <button onClick={() => fetchLogs(pagination.page - 1)} disabled={pagination.page <= 1}>
+                        Précédent
+                    </button>
+                    <span>Page {pagination.page} sur {pagination.totalPages}</span>
+                    <button onClick={() => fetchLogs(pagination.page + 1)} disabled={pagination.page >= pagination.totalPages}>
+                        Suivant
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
