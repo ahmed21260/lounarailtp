@@ -134,13 +134,15 @@ class SurveillanceSystem {
             }
         });
 
-        // Détection tentatives de sélection de texte
+        // Détection tentatives de sélection de texte (DÉSACTIVÉ CAR TROP SENSIBLE)
+        /*
         document.addEventListener('selectstart', (e) => {
             this.recordViolation('TENTATIVE_SELECTION', {
                 target: e.target.tagName,
                 timestamp: new Date().toISOString()
             });
         });
+        */
 
         // Détection tentatives de sauvegarde (Ctrl+S)
         document.addEventListener('keydown', (e) => {
