@@ -206,16 +206,75 @@ export default function Home() {
           <Accordion id="prestations" title="Nos Prestations" icon={
             <svg className="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
           }>
-            <p className="text-lg mb-6">Découvrez notre gamme complète de prestations spécialisées dans le domaine ferroviaire.</p>
-            <ul className="space-y-4 text-lg">
-              <li><span className="font-bold text-yellow-400">Interventions rail-route</span> : Opérations de maintenance, travaux de voie, assistance technique.</li>
-              <li><span className="font-bold text-yellow-400">Sécurité ferroviaire</span> : Mise en place de protocoles, audits, accompagnement sécurité sur chantier.</li>
-              <li><span className="font-bold text-yellow-400">Expertise & conseil</span> : Diagnostic, planification, pilotage de projets ferroviaires.</li>
-              <li><span className="font-bold text-yellow-400">Formation terrain</span> : Initiation et perfectionnement à la conduite d'engins rail-route.</li>
-            </ul>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white/5 rounded-lg p-4"><p className="text-sm text-white/60 mb-2">Photo à ajouter</p><div className="h-32 bg-white/10 rounded-lg flex items-center justify-center"><span className="text-white/40">Image prestation</span></div></div>
-              <div className="bg-white/5 rounded-lg p-4"><p className="text-sm text-white/60 mb-2">Photo à ajouter</p><div className="h-32 bg-white/10 rounded-lg flex items-center justify-center"><span className="text-white/40">Image prestation</span></div></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {/* Image Gruttage (mise en avant) */}
+              <div className="gallery-item group md:col-span-2 relative">
+                <div className="absolute top-2 left-2 bg-yellow-400 text-black text-xs font-bold uppercase px-3 py-1 rounded-full z-10 shadow-lg">
+                  <i className="fas fa-star mr-1"></i>Haute Précision
+                </div>
+                <img src="/images/Gruttage pelle.jpg" alt="Photo de grutage de précision" className="w-full h-64 object-cover" />
+                <div className="p-4 bg-black/50">
+                  <h4 className="font-semibold text-yellow-400">160 tonnes d'acier… pour tester un pont !</h4>
+                  <p className="text-sm text-gray-300">Huit pelles rail-route de 20 tonnes chacune ont pris place sur le tablier, soit l'équivalent du poids de plus de 100 voitures.</p>
+                </div>
+              </div>
+
+              {/* Image Chantier EOLE */}
+              <div className="gallery-item group">
+                <img src="/images/dashboard/Pelle en action.png" alt="Chantier EOLE" className="w-full h-64 object-cover" />
+                <div className="p-4 bg-black/50">
+                  <h4 className="font-semibold text-yellow-400">Chantier EOLE RER E</h4>
+                  <p className="text-sm text-gray-300">En collaboration avec TSO / EIFFAGE RAIL.</p>
+                </div>
+              </div>
+
+              {/* Image Remplacement de rails */}
+              <div className="gallery-item group">
+                <img src="/images/POSE JET.jpg" alt="Remplacement de rails" className="w-full h-64 object-cover" />
+                <div className="p-4 bg-black/50">
+                  <h4 className="font-semibold text-yellow-400">Remplacement de rails</h4>
+                  <p className="text-sm text-gray-300">Précision et rapidité pour la maintenance des voies.</p>
+                </div>
+              </div>
+
+              {/* Image Pose de voie */}
+              <div className="gallery-item group">
+                <img src="/images/POSE JET 2.jpg" alt="Pose de voie" className="w-full h-64 object-cover" />
+                <div className="p-4 bg-black/50">
+                  <h4 className="font-semibold text-yellow-400">Pose de voie</h4>
+                  <p className="text-sm text-gray-300">Techniques modernes pour des infrastructures durables.</p>
+                </div>
+              </div>
+
+              {/* Image Chantier nuit */}
+              <div className="gallery-item group">
+                <img src="/images/2 QUAI.jpg" alt="Chantier de nuit" className="w-full h-64 object-cover" />
+                <div className="p-4 bg-black/50">
+                  <h4 className="font-semibold text-yellow-400">Chantiers de nuit</h4>
+                  <p className="text-sm text-gray-300">Flexibilité et efficacité pour minimiser l'impact sur le trafic.</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Map Section */}
+            <div className="my-12">
+                <h3 className="text-2xl sm:text-3xl font-semibold text-center mb-6 text-white">Notre zone d'intervention : Toute la France</h3>
+                <div className="bg-white/5 p-4 rounded-lg shadow-lg">
+                    <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden border border-yellow-400/20">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8623547.433430155!2d-2.2752159939679!3d46.7150134444061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sfr!2sfr!4v1633010978000"
+                        width="100%"
+                        height="450"
+                        style={{ border:0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    </div>
+                    <p className="text-center text-gray-400 mt-4 text-sm">
+                    Cette carte est une représentation de notre zone d'intervention nationale. Pour des raisons de confidentialité, les emplacements des chantiers spécifiques ne sont pas affichés.
+                    </p>
+                </div>
             </div>
           </Accordion>
           <Accordion id="location" title="Location" icon={
