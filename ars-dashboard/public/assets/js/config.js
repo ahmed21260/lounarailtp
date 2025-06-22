@@ -1,6 +1,9 @@
 // Fichier: assets/js/config.js
 // Ce fichier centralise la configuration et les utilitaires globaux du site.
 
+// S'assure que l'objet AURA existe sur l'objet window
+window.AURA = window.AURA || {};
+
 const config = {
     debugMode: true, // Mettre à false en production pour cacher les logs détaillés
 };
