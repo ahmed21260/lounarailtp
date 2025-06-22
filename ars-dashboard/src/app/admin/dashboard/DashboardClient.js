@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import MegaDashboard from '@/app/components/MegaDashboard';
+import MegaDashboard from '../../components/MegaDashboard';
 
 export default function DashboardClient() {
     const { status } = useSession()

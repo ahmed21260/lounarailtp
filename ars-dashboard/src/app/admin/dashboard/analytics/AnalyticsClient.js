@@ -18,8 +18,8 @@ import {
   Download
 } from 'lucide-react';
 import Chart from 'chart.js/auto';
-import { seoConfig } from '@/app/seo-config';
-import MegaDashboard from '@/app/components/MegaDashboard';
+import { seoConfig } from '../../../seo-config';
+import MegaDashboard from '../../../components/MegaDashboard';
 
 export default function AnalyticsClient() {
   const [analytics, setAnalytics] = useState({

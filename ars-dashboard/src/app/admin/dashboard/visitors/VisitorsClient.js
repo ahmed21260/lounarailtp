@@ -26,7 +26,7 @@ import {
   Link as LinkIcon,
   Briefcase
 } from 'lucide-react';
-import './visitors.css';
+// import './visitors.css'; // Supprimé car le fichier est introuvable et bloque le build
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
