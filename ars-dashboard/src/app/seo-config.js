@@ -107,7 +107,7 @@ export const seoConfig = {
 
   // Configuration des contacts
   contact: {
-    email: 'contact@lounarailtp.com',
+    email: 'lounarailtp@gmail.com',
     phone: '+33-1-XX-XX-XX-XX',
     address: {
       street: 'Adresse de Louna Rail TP',
@@ -202,7 +202,7 @@ export const seoConfig = {
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        email: 'contact@lounarailtp.com',
+        email: 'lounarailtp@gmail.com',
         availableLanguage: ['French', 'English']
       },
       sameAs: [
@@ -218,7 +218,7 @@ export const seoConfig = {
       description: 'Expert en travaux ferroviaires et formation professionnelle',
       url: 'https://lounarailtp.com',
       telephone: '+33-1-XX-XX-XX-XX',
-      email: 'contact@lounarailtp.com',
+      email: 'lounarailtp@gmail.com',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'FR',

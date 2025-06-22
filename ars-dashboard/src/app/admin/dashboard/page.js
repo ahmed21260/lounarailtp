@@ -2,7 +2,16 @@
 
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import MegaDashboard from '../../components/MegaDashboard'; // On importe le nouveau MEGA dashboard
+import MegaDashboard from '@/app/components/MegaDashboard'; // On importe le nouveau MEGA dashboard
+
+export const metadata = {
+  title: 'Tableau de Bord Principal',
+  description: 'Vue d\'ensemble des activités et des indicateurs de performance.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function DashboardPage() {
     const { status } = useSession()

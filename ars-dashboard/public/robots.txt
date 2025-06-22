@@ -1,11 +1,36 @@
 # Louna Rail TP - Robots.txt
 # © 2025 Ahmed Chaira - Tous droits réservés
 
-User-agent: *
+# Spécifique pour les crawlers d'IA et les moteurs de recherche majeurs.
+# Ils sont autorisés à crawler le site, mais pas les zones privées.
+User-agent: Googlebot
+Disallow: /admin/
 Allow: /
 
-# Sitemap
-Sitemap: https://lounarailtp.com/sitemap.xml
+User-agent: Bingbot
+Disallow: /admin/
+Allow: /
+
+User-agent: GPTBot
+Disallow: /admin/
+Allow: /
+
+User-agent: ChatGPT-User
+Disallow: /admin/
+Allow: /
+
+User-agent: ClaudeBot
+Disallow: /admin/
+Allow: /
+
+User-agent: PerplexityBot
+Disallow: /admin/
+Allow: /
+
+# Bloque l'accès à la zone d'administration pour tous les autres robots.
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
 
 # Pages importantes à indexer en priorité
 Allow: /
@@ -121,4 +146,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://lounarailtp.com 
+Host: https://lounarailtp.com
+
+# Emplacement du sitemap
+Sitemap: https://lounarailtp.com/sitemap.xml 

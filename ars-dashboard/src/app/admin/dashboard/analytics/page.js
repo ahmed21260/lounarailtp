@@ -18,6 +18,17 @@ import {
   Download
 } from 'lucide-react';
 import Chart from 'chart.js/auto';
+import { seoConfig } from '@/app/seo-config';
+import MegaDashboard from '@/app/components/MegaDashboard';
+
+export const metadata = {
+  title: 'Analyse de Trafic Web',
+  description: 'Analyse détaillée des visiteurs, pages vues, et sources de trafic du site web.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function AnalyticsPage() {
   const [analytics, setAnalytics] = useState({

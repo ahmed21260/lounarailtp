@@ -27,6 +27,17 @@ import {
   Briefcase
 } from 'lucide-react';
 import './visitors.css';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+
+export const metadata = {
+  title: 'Liste des Visiteurs',
+  description: 'Journal des visiteurs du site web avec détails de session et informations techniques.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const VisitorsPage = () => {
   const [visitors, setVisitors] = useState([]);

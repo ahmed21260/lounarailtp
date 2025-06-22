@@ -83,6 +83,9 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                     <LogOut size={20} />
                     <span>Déconnexion</span>
                 </button>
+                <small className="text-xs text-gray-400 text-center block mt-4">
+                  Site surveillé & protégé par un système de suivi technique et anti-copie intelligent.
+                </small>
             </div>
         </aside>
     );
@@ -105,7 +108,7 @@ const Header = ({ router }) => (
             <button className="action-btn"><Settings size={20} /></button>
             <button className="action-btn"><LifeBuoy size={20} /></button>
             <div className="user-profile">
-                <img src="/images/dashboard/user-avatar.png" alt="User Avatar" />
+                <img src="/images/dashboard/user-avatar.png" alt="Avatar de l'administrateur connecté" />
                 <div className="user-info">
                     <span className="user-name">Admin User</span>
                     <span className="user-role">Administrateur</span>

@@ -1,8 +1,16 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+
+export const metadata = {
+  title: 'Connexion Administrateur',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
