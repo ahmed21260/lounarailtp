@@ -1,0 +1,195 @@
+{
+  "name": "Louna Rail TP - Expert en Travaux Ferroviaires",
+  "short_name": "Louna Rail TP",
+  "description": "Expert en travaux ferroviaires, maintenance d'infrastructure et formation professionnelle. Spécialiste en sécurité ferroviaire et services de maintenance.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e40af",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["business", "education", "professional"],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Page d'accueil Louna Rail TP"
+    },
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Page d'accueil mobile Louna Rail TP"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Services",
+      "short_name": "Services",
+      "description": "Découvrez nos services ferroviaires",
+      "url": "/services",
+      "icons": [
+        {
+          "src": "/icons/services.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Formations",
+      "short_name": "Formations",
+      "description": "Nos formations professionnelles",
+      "url": "/formations",
+      "icons": [
+        {
+          "src": "/icons/formations.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contactez-nous",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/icons/contact.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Devis",
+      "short_name": "Devis",
+      "description": "Demander un devis",
+      "url": "/devis",
+      "icons": [
+        {
+          "src": "/icons/devis.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://lounarailtp.com"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "protocol_handlers": [
+    {
+      "protocol": "web+lounarailtp",
+      "url": "/?url=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/upload",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "image/*": [".jpg", ".jpeg", ".png", ".gif"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "permissions": [
+    "geolocation",
+    "notifications",
+    "camera",
+    "microphone"
+  ],
+  "background": {
+    "service_worker": "/sw.js",
+    "type": "module"
+  },
+  "scope_extensions": [
+    {
+      "origin": "https://api.lounarailtp.com"
+    }
+  ],
+  "capture_links": "existing-client-navigate",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "description": "Louna Rail TP est votre expert en travaux ferroviaires, maintenance d'infrastructure et formation professionnelle. Nous proposons des services complets de sécurité ferroviaire, formation de conducteurs et maintenance préventive.",
+  "keywords": [
+    "travaux ferroviaires",
+    "maintenance ferroviaire",
+    "formation conducteur",
+    "sécurité ferroviaire",
+    "infrastructure ferroviaire",
+    "expertise ferroviaire"
+  ],
+  "author": "Ahmed Chaira",
+  "version": "1.0.0",
+  "homepage_url": "https://lounarailtp.com",
+  "developer": {
+    "name": "Ahmed Chaira",
+    "url": "https://lounarailtp.com"
+  }
+} 

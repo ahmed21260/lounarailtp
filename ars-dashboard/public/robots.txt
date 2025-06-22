@@ -1,0 +1,124 @@
+# Louna Rail TP - Robots.txt
+# © 2025 Ahmed Chaira - Tous droits réservés
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lounarailtp.com/sitemap.xml
+
+# Pages importantes à indexer en priorité
+Allow: /
+Allow: /services
+Allow: /formations
+Allow: /about
+Allow: /contact
+Allow: /devis
+Allow: /projets
+Allow: /blog
+Allow: /actualites
+Allow: /certifications
+Allow: /partenaires
+Allow: /carrieres
+
+# Pages administratives à exclure
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+
+# Fichiers techniques à exclure
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /api/*
+Disallow: /_api/*
+Disallow: /_next/*
+Disallow: /static/*
+Disallow: /assets/js/*
+Disallow: /assets/css/*
+
+# Paramètres d'URL à exclure
+Disallow: /*?*
+Disallow: /*&*
+Disallow: /*utm_*
+Disallow: /*fbclid*
+Disallow: /*gclid*
+
+# Images et médias
+Allow: /images/
+Allow: /assets/images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.pdf$
+
+# Fichiers CSS et JS nécessaires
+Allow: /assets/css/styles.css
+Allow: /assets/js/main.js
+
+# Règles spécifiques pour les bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Bloquer les bots malveillants
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# Règles pour les images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /assets/images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Règles pour les mobiles
+User-agent: *
+Allow: /
+
+# Host
+Host: https://lounarailtp.com 

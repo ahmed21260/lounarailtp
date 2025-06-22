@@ -65,6 +65,47 @@ model SecurityLog {
   user      User     @relation(fields: [userId], references: [id])
 }
 
+// Modèle pour tracker les visiteurs
+model Visitor {
+  id              String   @id @default(cuid())
+  ipAddress       String
+  userAgent       String?
+  referrer        String?
+  pageUrl         String
+  sessionId       String
+  country         String?
+  city            String?
+  region          String?
+  timezone        String?
+  deviceType      String?  // mobile, desktop, tablet
+  browser         String?
+  os              String?
+  screenResolution String?
+  language        String?
+  visitDuration   Int?     // en secondes
+  bounceRate      Boolean  @default(true)
+  isReturning     Boolean  @default(false)
+  utmSource       String?
+  utmMedium       String?
+  utmCampaign     String?
+  utmTerm         String?
+  utmContent      String?
+  createdAt       DateTime @default(now())
+  lastActivity    DateTime @default(now())
+  pageViews       PageView[]
+}
+
+// Modèle pour tracker les pages vues
+model PageView {
+  id        String   @id @default(cuid())
+  visitorId String
+  pageUrl   String
+  pageTitle String?
+  timeSpent Int?     // en secondes
+  createdAt DateTime @default(now())
+  visitor   Visitor  @relation(fields: [visitorId], references: [id])
+}
+
 enum UserRole {
   USER
   ADMIN
