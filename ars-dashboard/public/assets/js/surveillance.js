@@ -189,34 +189,35 @@ class SurveillanceSystem {
 
     recordViolation(type, details) {
         const violation = {
+            type: "security", // On définit le type pour notre API de notification
+            data: {
+                type: type,
+                page: window.location.href,
+                message: JSON.stringify(details, null, 2)
+                // L'IP sera ajoutée par le serveur
+            }
+        };
+
+        this.logViolation(type, details); // On garde le log en console
+        this.sendToServer(violation);
+    }
+
+    logViolation(type, details) {
+        const fullViolationDetails = {
             type: type,
             details: details,
             sessionId: this.sessionId,
             userAgent: navigator.userAgent,
             url: window.location.href,
             timestamp: new Date().toISOString(),
-            ip: 'DETECTED', // Sera rempli par le serveur
-            screenResolution: `${screen.width}x${screen.height}`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            language: navigator.language,
-            platform: navigator.platform,
-            cookieEnabled: navigator.cookieEnabled,
-            doNotTrack: navigator.doNotTrack
         };
-
-        this.violations.push(violation);
-        this.logViolation(violation);
-        this.sendToServer(violation);
-    }
-
-    logViolation(violation) {
-        console.error('🚨 VIOLATION RÉSEAU DÉTECTÉE:', violation);
+        console.error('🚨 VIOLATION RÉSEAU DÉTECTÉE:', fullViolationDetails);
         
         // Affichage d'un avertissement visuel
-        this.showWarning(violation.type);
+        this.showWarning(type);
         
         // Log local pour sauvegarde
-        this.storeLocally(violation);
+        // this.storeLocally(violation); // Désactivé pour l'instant
     }
 
     showWarning(type) {
@@ -252,28 +253,22 @@ class SurveillanceSystem {
     }
 
     async sendToServer(violation) {
-        try {
-            if (!this.isOnline) {
-                // Stockage en attente si hors ligne
-                this.pendingViolations.push(violation);
-                return;
-            }
+        if (!navigator.onLine) {
+            this.pendingViolations.push(violation);
+            return;
+        }
 
-            const response = await fetch(`${this.serverUrl}/api/violation`, {
+        try {
+            const response = await fetch(`/api/notifications`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(violation)
+                body: JSON.stringify(violation),
             });
 
-            const result = await response.json();
-            
-            if (result.success) {
-                console.log('✅ Violation transmise au serveur:', violation.type);
-            } else {
-                console.error('❌ Erreur transmission:', result.error);
-                this.pendingViolations.push(violation);
+            if (!response.ok) {
+                console.warn(`Erreur envoi violation (${response.status})`);
             }
         } catch (error) {
             console.error('❌ Erreur réseau:', error);
