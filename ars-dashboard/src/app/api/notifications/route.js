@@ -93,13 +93,13 @@ export async function POST(request) {
     switch (type) {
       case 'visitor':
         message = `
-🚨 <b>Nouveau Visiteur</b>
+✅  <b>NOUVEAU VISITEUR</b>
 
-📍 <b>Pays:</b> ${data.country || 'Inconnu'}
-🌐 <b>Page:</b> ${data.page || 'Inconnue'}
-📱 <b>Device:</b> ${data.device || 'Inconnu'}
-🌍 <b>IP:</b> ${ip}
-⏰ <b>Heure:</b> ${new Date().toLocaleString('fr-FR')}
+📄 <b>Page :</b> ${data.page || 'Inconnue'}
+${locationInfo}
+💻 <b>Appareil :</b> ${data.device || 'Inconnu'}
+🌐 <b>IP :</b> ${ip}
+🕒 <b>Heure :</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}
         `;
         subject = 'Nouveau visiteur';
         break;

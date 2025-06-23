@@ -29,8 +29,8 @@ vercel whoami
 Write-Host "📤 Déploiement en cours..." -ForegroundColor Yellow
 vercel --prod
 
-Write-Host "🎉 Déploiement terminé!" -ForegroundColor Green
-Write-Host "📋 Prochaines étapes:" -ForegroundColor Cyan
-Write-Host "   1. Configurer les variables d'environnement dans Vercel Dashboard"
-Write-Host "   2. Ajouter le domaine personnalisé lounarailtp.com"
-Write-Host "   3. Tester toutes les fonctionnalités" 
+Write-Host '🎉 Déploiement terminé!' -ForegroundColor Green
+Write-Host '📋 Prochaines étapes:' -ForegroundColor Cyan
+Write-Host '   1. Configurer les variables d''environnement dans Vercel Dashboard' -ForegroundColor Cyan
+Write-Host '   2. Ajouter le domaine personnalisé lounarailtp.com' -ForegroundColor Cyan
+Write-Host '   3. Tester toutes les fonctionnalités' -ForegroundColor Cyan 
