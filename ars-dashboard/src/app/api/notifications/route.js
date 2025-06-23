@@ -94,11 +94,28 @@ export async function POST(request) {
 
         // Formatage spécifique selon le type d'alerte de sécurité
         if (data.type === 'CLIC_DROIT') {
+          const className = securityDetails.className || 'Aucune';
+          const truncatedClassName = className.length > 60 ? `${className.substring(0, 60)}...` : className;
+          
+          // Fonction pour traduire les cibles techniques
+          const traduireCible = (cible) => {
+            switch(cible?.toUpperCase()) {
+              case 'DIV': return 'Une section (div)';
+              case 'A': return 'Un lien (a)';
+              case 'IMG': return 'Une image (img)';
+              case 'BUTTON': return 'Un bouton (button)';
+              case 'P': return 'Un paragraphe (p)';
+              case 'H1': case 'H2': case 'H3': return 'Un titre (h)';
+              case 'SECTION': return 'Une grande section (section)';
+              default: return cible || 'Inconnue';
+            }
+          };
+
           detailsText = `
 📋 <b>Détails de l'action :</b>
-   - 🖱️ <b>Cible :</b> <code>${securityDetails.target || 'N/A'}</code>
+   - 🖱️ <b>Cible :</b> <code>${traduireCible(securityDetails.target)}</code>
    - 🆔 <b>ID de l'élément :</b> <code>${securityDetails.id || 'Aucun'}</code>
-   - 🔡 <b>Classe :</b> <code>${securityDetails.className || 'Aucune'}</code>
+   - 🎨 <b>Style :</b> <code>${truncatedClassName}</code>
    - 📍 <b>Coords (X, Y) :</b> ${securityDetails.x || '?'}, ${securityDetails.y || '?'}`;
         } else if (data.type === 'NAVIGATION_ATTEMPT') {
           detailsText = `
@@ -162,10 +179,12 @@ ${detailsText}
     // Telegram (toujours)
     promises.push(sendTelegramNotification(message));
 
-    // Email (pour les alertes importantes)
+    // Email (pour les alertes importantes) - Désactivé pour le moment
+    /*
     if (priority === 'high' || type === 'security' || type === 'error') {
       promises.push(sendEmailNotification(subject, message.replace(/<[^>]*>/g, '')));
     }
+    */
 
     const results = await Promise.all(promises);
     const success = results.some(result => result);
