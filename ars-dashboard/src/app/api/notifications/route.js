@@ -68,7 +68,23 @@ export async function POST(request) {
 
     // === Détection améliorée de l'IP côté serveur ===
     const headersList = headers();
-    const ip = headersList.get('x-forwarded-for') || '127.0.0.1';
+    // Prend la première IP en cas de proxy et nettoie les espaces
+    const ip = headersList.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
+
+    // === Géolocalisation par IP ===
+    let locationInfo = '';
+    try {
+      // On évite de requêter les IP locales pour les tests
+      if (ip !== '127.0.0.1' && !ip.startsWith('192.168.')) {
+        const geoResponse = await fetch(`http://ip-api.com/json/${ip}?fields=status,city,country`);
+        const geoData = await geoResponse.json();
+        if (geoData.status === 'success' && geoData.city) {
+          locationInfo = `📍 <b>Localisation :</b> ${geoData.city}, ${geoData.country}`;
+        }
+      }
+    } catch (e) {
+      console.error('Erreur de géolocalisation:', e);
+    }
 
     // Formatage du message selon le type
     let message = '';
@@ -89,48 +105,57 @@ export async function POST(request) {
         break;
 
       case 'security':
-        const securityDetails = typeof data.message === 'object' ? data.message : JSON.parse(data.message || '{}');
-        let detailsText = '';
-
-        // Formatage spécifique selon le type d'alerte de sécurité
-        if (data.type === 'CLIC_DROIT') {
-          const className = securityDetails.className || 'Aucune';
-          const truncatedClassName = className.length > 60 ? `${className.substring(0, 60)}...` : className;
-          
-          // Fonction pour traduire les cibles techniques
-          const traduireCible = (cible) => {
-            switch(cible?.toUpperCase()) {
-              case 'DIV': return 'Une section (div)';
-              case 'A': return 'Un lien (a)';
-              case 'IMG': return 'Une image (img)';
-              case 'BUTTON': return 'Un bouton (button)';
-              case 'P': return 'Un paragraphe (p)';
-              case 'H1': case 'H2': case 'H3': return 'Un titre (h)';
-              case 'SECTION': return 'Une grande section (section)';
-              default: return cible || 'Inconnue';
-            }
-          };
-
-          detailsText = `
+        // Formateur de message centralisé pour la sécurité
+        const formatSecurityDetails = (type, details) => {
+            switch (type) {
+                case 'CLIC_DROIT':
+                    const className = details.className || 'Aucune';
+                    const truncatedClassName = className.length > 60 ? `${className.substring(0, 60)}...` : className;
+                    const traduireCible = (cible) => {
+                      switch(cible?.toUpperCase()) {
+                        case 'DIV': return 'Une section (div)';
+                        case 'A': return 'Un lien (a)';
+                        case 'IMG': return 'Une image (img)';
+                        case 'BUTTON': return 'Un bouton (button)';
+                        case 'P': return 'Un paragraphe (p)';
+                        case 'H1': case 'H2': case 'H3': return 'Un titre (h)';
+                        case 'SECTION': return 'Une grande section (section)';
+                        default: return cible || 'Inconnue';
+                      }
+                    };
+                    return `
 📋 <b>Détails de l'action :</b>
-   - 🖱️ <b>Cible :</b> <code>${traduireCible(securityDetails.target)}</code>
-   - 🆔 <b>ID de l'élément :</b> <code>${securityDetails.id || 'Aucun'}</code>
+   - 🖱️ <b>Cible :</b> <code>${traduireCible(details.target)}</code>
+   - 🆔 <b>ID :</b> <code>${details.id || 'Aucun'}</code>
    - 🎨 <b>Style :</b> <code>${truncatedClassName}</code>
-   - 📍 <b>Coords (X, Y) :</b> ${securityDetails.x || '?'}, ${securityDetails.y || '?'}`;
-        } else if (data.type === 'NAVIGATION_ATTEMPT') {
-          detailsText = `
-🔗 <b>URL de destination :</b>
-<code>${securityDetails.url || 'Inconnue'}</code>`;
-        } else {
-          detailsText = `📝 <b>Détails:</b> ${data.message || 'Aucun détail'}`;
-        }
+   - 📍 <b>Coords :</b> ${details.x || '?'}, ${details.y || '?'}`;
 
+                case 'PAGE_LEAVE':
+                    return `🔗 <b>A quitté la page :</b>\n<code>${details.url || 'URL Inconnue'}</code>`;
+                case 'NAVIGATION_ATTEMPT':
+                    return `🔗 <b>Tentative de navigation (Précédent/Suivant)</b>`;
+                case 'TENTATIVE_COPIE':
+                    return `📋 <b>Contenu copié (extrait) :</b>\n<code>${details.selection || 'Aucun'}</code>`;
+                case 'TENTATIVE_CAPTURE':
+                case 'OUTILS_DEVELOPPEMENT':
+                case 'TENTATIVE_SAUVEGARDE':
+                case 'TENTATIVE_IMPRESSION':
+                    return `<i>Aucun détail supplémentaire pour cette action.</i>`;
+                default:
+                    return `📝 <b>Détails:</b>\n<code>${JSON.stringify(details, null, 2)}</code>`;
+            }
+        };
+
+        const securityDetails = typeof data.message === 'object' ? data.message : JSON.parse(data.message || '{}');
+        let detailsText = formatSecurityDetails(data.type, securityDetails);
+        
         message = `
 🚨 <b>ALERTE SÉCURITÉ</b> 🚨
 
-⚠️ <b>Type d'alerte :</b> ${data.type || 'Inconnu'}
-🔗 <b>Page :</b> ${data.page || 'Inconnue'}
+⚠️ <b>Type :</b> ${data.type || 'Inconnu'}
+📄 <b>Page :</b> ${data.page || 'Inconnue'}
 🌐 <b>IP :</b> ${ip}
+${locationInfo}
 ${detailsText}
 🕒 <b>Heure :</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}`;
         subject = 'Alerte sécurité';

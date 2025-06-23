@@ -9,6 +9,8 @@ class SurveillanceSystem {
         this.serverUrl = this.getServerUrl();
         this.isOnline = navigator.onLine;
         this.pendingViolations = [];
+        this.ignoreNextPopstate = false; // Pour ignorer la navigation via les ancres
+        this.isInternalNavigation = false; // Pour ignorer la sortie de page normale
         this.init();
     }
 
@@ -49,31 +51,49 @@ class SurveillanceSystem {
             this.logActivity('NETWORK_OFFLINE', 'Connexion réseau perdue');
         });
 
-        // Surveillance des changements de page
+        // Surveillance des changements de page (uniquement si ce n'est pas une navigation interne)
         window.addEventListener('beforeunload', () => {
+            if (this.isInternalNavigation) {
+                this.isInternalNavigation = false; // On réinitialise
+                return; // On n'enregistre pas la violation
+            }
             this.recordViolation('PAGE_LEAVE', {
                 url: window.location.href,
                 timestamp: new Date().toISOString()
             });
         });
 
-        // Surveillance des tentatives de navigation (améliorée)
-        document.addEventListener('click', (e) => {
-            // On cherche l'élément <a> le plus proche du clic
-            const link = e.target.closest('a');
-
-            // Si un lien est trouvé et qu'il a une ancre (#)
-            if (link && link.getAttribute('href')?.startsWith('#')) {
-                // On enregistre une alerte, mais on pourrait aussi choisir de l'ignorer
-                this.recordViolation('NAVIGATION_ATTEMPT', {
-                    url: link.href,
-                    timestamp: new Date().toISOString()
-                });
+        // Surveillance des tentatives de navigation (popstate pour back/forward)
+        window.addEventListener('popstate', () => {
+            if (this.ignoreNextPopstate) {
+                this.ignoreNextPopstate = false;
+                console.log("Ignoré : Navigation d'ancre interne.");
+                return;
             }
-        }, true); // On utilise la capture pour intercepter l'événement tôt
+            this.recordViolation('NAVIGATION_ATTEMPT', {
+                url: window.location.href,
+                timestamp: new Date().toISOString()
+            });
+        });
     }
 
     setupEventListeners() {
+        // Détection clic sur les ancres et les liens internes
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link) {
+                // Si c'est un lien d'ancre interne (#)
+                if (link.getAttribute('href')?.startsWith('#')) {
+                    this.ignoreNextPopstate = true;
+                    setTimeout(() => { this.ignoreNextPopstate = false; }, 150);
+                }
+                // Si c'est un lien vers le même site
+                if (link.hostname === window.location.hostname) {
+                    this.isInternalNavigation = true;
+                }
+            }
+        }, true);
+
         // Détection clic droit
         document.addEventListener('contextmenu', (e) => {
             this.recordViolation('CLIC_DROIT', {
