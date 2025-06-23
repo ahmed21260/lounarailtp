@@ -780,34 +780,45 @@
       </div>
     </footer>
   </div>
-  
-    <!-- Modale "A Propos" -->
+
+    <!-- Modale "A Propos" (Version restaurée selon la demande) -->
     <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden" onclick="closeModal('about-modal')">
-        <div class="bg-gray-900 border border-yellow-400/20 p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center relative" onclick="event.stopPropagation()">
-            <img src="images/LOGO pelle rail.png" alt="Logo Louna Rail TP" class="w-32 mx-auto mb-4"/>
-            <h2 class="text-2xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
-            <p class="text-gray-300 mb-6">Louna Rail TP est votre expert de confiance pour tous les travaux ferroviaires. Notre mission est de fournir des services fiables, sécurisés et de haute qualité, allant de la location d'engins spécialisés avec opérateurs qualifiés à la formation certifiée. Nous nous engageons à assurer la réussite de vos chantiers les plus complexes.</p>
-            <button onclick="closeModal('about-modal')" class="bg-yellow-400 text-black rounded-full px-6 py-2 font-semibold hover:bg-yellow-300 transition-all">Fermer</button>
+        <div class="bg-gray-800 border border-gray-700 p-8 rounded-lg shadow-2xl max-w-2xl w-full relative text-left" onclick="event.stopPropagation()">
+            <button onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-light">&times;</button>
+            <h2 class="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
+            <p class="text-gray-300 mb-4">Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.</p>
+            <p class="text-gray-300 mb-6">Notre force réside dans notre expertise de pointe et notre parc matériel moderne, nous permettant d'intervenir sur les chantiers les plus complexes avec une efficacité maximale.</p>
+            <h3 class="text-xl font-semibold text-yellow-400 mb-3">Nos Prestations Clés :</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 mb-6">
+                <li>Conduite experte de pelles rail-route et d'engins spécialisés.</li>
+                <li>Travaux de terrassement, de nivellement et de pose de voies.</li>
+                <li>Maintenance préventive et corrective des réseaux ferrés.</li>
+                <li>Mise en sécurité de chantiers et gestion des circulations.</li>
+            </ul>
+            <p class="text-gray-300">Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
         </div>
     </div>
 
-    <!-- Modale de Confirmation d'Appel -->
-    <div id="call-confirm-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden" onclick="closeModal('call-confirm-modal')">
-        <div class="bg-gray-900 border border-red-500/30 p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center relative" onclick="event.stopPropagation()">
-            <div class="w-16 h-16 bg-red-500/10 border-2 border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <h2 class="text-xl font-bold text-white mb-2">Confirmation d'Appel</h2>
-            <p class="text-gray-400 mb-6">Vous êtes sur le point d'appeler notre numéro d'urgence. Confirmez-vous cette action ?</p>
-            <div class="flex justify-center gap-4">
-                <button onclick="closeModal('call-confirm-modal')" class="bg-gray-700 text-white rounded-full px-6 py-2 font-semibold hover:bg-gray-600 transition-all">Annuler</button>
-                <a href="tel:+33612435163" id="confirm-call-btn" class="bg-red-600 text-white rounded-full px-6 py-2 font-semibold hover:bg-red-500 transition-all">Confirmer l'Appel</a>
-            </div>
+    <!-- Modale d'Appel d'Urgence (Version restaurée selon la demande) -->
+    <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden" onclick="closeModal('emergency-modal')">
+        <div class="bg-gray-800 border border-red-500/50 p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal('emergency-modal')" class="absolute top-2 right-4 text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
+            <h2 class="text-2xl font-bold text-red-500 mb-2">Intervention Urgente ?</h2>
+            <p class="text-gray-300 mb-6">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
+            <a href="tel:+33612972713" class="block w-full bg-red-600 text-white rounded-lg px-6 py-4 text-xl font-bold hover:bg-red-500 transition-all">
+                Appeler : 06 12 97 27 13
+            </a>
         </div>
     </div>
 
-    <!-- Bouton d'Urgence Flottant -->
-    <button id="emergency-call-button" onclick="openModal('call-confirm-modal')" class="fixed bottom-6 right-6 bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-40 hover:bg-red-500 transition-all transform hover:scale-110">
+    <!-- Bouton "A Propos" Flottant (en bas à droite) -->
+    <button id="about-button" onclick="openModal('about-modal')" class="fixed bottom-6 right-6 bg-yellow-400 text-black w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-40 hover:bg-yellow-300 transition-all transform hover:scale-110">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+        <span class="sr-only">À Propos</span>
+    </button>
+
+    <!-- Bouton d'Urgence Flottant (en bas à gauche) -->
+    <button id="emergency-call-button" onclick="openModal('emergency-modal')" class="fixed bottom-6 left-6 bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-40 hover:bg-red-500 transition-all transform hover:scale-110">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
         <span class="sr-only">Appel d'urgence</span>
     </button>
@@ -837,14 +848,14 @@
             if (count < target) {
                 counter.innerText = Math.ceil(count + inc);
                 setTimeout(() => animateCounter(counter), 1);
-            } else {
+          } else {
                 counter.innerText = target;
             }
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
                     animateCounter(entry.target);
                     observer.unobserve(entry.target);
                 }
@@ -864,8 +875,8 @@
 
         window.closeModal = function(modalId) {
             document.getElementById(modalId).classList.add('hidden');
-        }
-    });
+          }
+      });
   </script>
 </body>
 </html>
