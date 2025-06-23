@@ -785,7 +785,7 @@
     <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden" onclick="closeModal('about-modal')">
         <div class="bg-gray-800 border border-gray-700 p-8 rounded-lg shadow-2xl max-w-2xl w-full relative text-left" onclick="event.stopPropagation()">
             <button onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-light">&times;</button>
-            <h2 class="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
+          <h2 class="text-3xl font-bold text-yellow-400 mb-4">À Propos de Louna Rail TP</h2>
             <p class="text-gray-300 mb-4">Louna Rail TP est votre expert national en travaux publics ferroviaires. Nous apportons des solutions fiables et sécurisées pour la construction, la modernisation et la maintenance des infrastructures sur l'ensemble du territoire français.</p>
             <p class="text-gray-300 mb-6">Notre force réside dans notre expertise de pointe et notre parc matériel moderne, nous permettant d'intervenir sur les chantiers les plus complexes avec une efficacité maximale.</p>
             <h3 class="text-xl font-semibold text-yellow-400 mb-3">Nos Prestations Clés :</h3>
@@ -796,6 +796,12 @@
                 <li>Mise en sécurité de chantiers et gestion des circulations.</li>
             </ul>
             <p class="text-gray-300">Engagés pour l'excellence, nous garantissons des interventions rapides, conformes aux normes de sécurité les plus strictes, où que vous soyez en France.</p>
+            
+            <div class="mt-8 border-t border-gray-700 pt-6">
+                 <h4 class="text-lg font-semibold text-yellow-400 mb-3">Contact Direct</h4>
+                 <p class="text-gray-300">Email: <a href="mailto:contact@lounarailtp.com" class="text-yellow-400 hover:underline">contact@lounarailtp.com</a></p>
+                 <p class="text-gray-300">Téléphone: <a href="tel:+33612435163" class="text-yellow-400 hover:underline">06 12 43 51 63</a></p>
+            </div>
         </div>
     </div>
 
@@ -805,17 +811,17 @@
             <button onclick="closeModal('emergency-modal')" class="absolute top-2 right-4 text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
             <h2 class="text-2xl font-bold text-red-500 mb-2">Intervention Urgente ?</h2>
             <p class="text-gray-300 mb-6">Contactez-nous 24/7 pour toute urgence sur chantier.</p>
-            <a href="tel:+33612972713" class="block w-full bg-red-600 text-white rounded-lg px-6 py-4 text-xl font-bold hover:bg-red-500 transition-all">
-                Appeler : 06 12 97 27 13
+            <a href="tel:+33612435163" class="block w-full bg-red-600 text-white rounded-lg px-6 py-4 text-xl font-bold hover:bg-red-500 transition-all">
+                Appeler : 06 12 43 51 63
             </a>
         </div>
     </div>
-
+  
     <!-- Bouton "A Propos" Flottant (en bas à droite) -->
     <button id="about-button" onclick="openModal('about-modal')" class="fixed bottom-6 right-6 bg-yellow-400 text-black w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-40 hover:bg-yellow-300 transition-all transform hover:scale-110">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
         <span class="sr-only">À Propos</span>
-    </button>
+          </button>
 
     <!-- Bouton d'Urgence Flottant (en bas à gauche) -->
     <button id="emergency-call-button" onclick="openModal('emergency-modal')" class="fixed bottom-6 left-6 bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-40 hover:bg-red-500 transition-all transform hover:scale-110">
@@ -833,6 +839,32 @@
   <script>
     // Révéler le contenu une fois prêt
     document.getElementById('main-content').removeAttribute('data-v-cloak');
+
+    // Fonction pour l'accordéon
+    function toggleAccordion(id) {
+        const content = document.getElementById(id + '-content');
+        if (!content) return; // Sécurité si l'élément n'existe pas
+
+        const allContents = document.querySelectorAll('.accordion-content');
+        // Vérifie si l'accordéon qu'on clique est déjà ouvert
+        const isAlreadyOpen = content.style.maxHeight;
+
+        // Ferme tous les accordéons
+        allContents.forEach(item => {
+            item.style.maxHeight = null;
+            item.previousElementSibling.classList.remove('bg-yellow-400/10');
+            const icon = item.previousElementSibling.querySelector('svg:last-of-type');
+            if(icon) icon.style.transform = 'rotate(0deg)';
+        });
+        
+        // Si l'accordéon n'était pas déjà ouvert, on l'ouvre
+        if (!isAlreadyOpen) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            content.previousElementSibling.classList.add('bg-yellow-400/10');
+            const icon = content.previousElementSibling.querySelector('svg:last-of-type');
+            if(icon) icon.style.transform = 'rotate(180deg)';
+        }
+    }
 
     // Script pour les compteurs animés
     document.addEventListener("DOMContentLoaded", () => {
