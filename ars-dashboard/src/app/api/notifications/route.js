@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 
 // Configuration Telegram Bot
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -65,6 +66,10 @@ export async function POST(request) {
   try {
     const { type, data, priority = 'normal' } = await request.json();
 
+    // === Détection améliorée de l'IP côté serveur ===
+    const headersList = headers();
+    const ip = headersList.get('x-forwarded-for') || '127.0.0.1';
+
     // Formatage du message selon le type
     let message = '';
     let subject = '';
@@ -77,22 +82,40 @@ export async function POST(request) {
 📍 <b>Pays:</b> ${data.country || 'Inconnu'}
 🌐 <b>Page:</b> ${data.page || 'Inconnue'}
 📱 <b>Device:</b> ${data.device || 'Inconnu'}
-🌍 <b>IP:</b> ${data.ip || 'Inconnue'}
+🌍 <b>IP:</b> ${ip}
 ⏰ <b>Heure:</b> ${new Date().toLocaleString('fr-FR')}
         `;
         subject = 'Nouveau visiteur';
         break;
 
       case 'security':
-        message = `
-🚨 <b>ALERTE SÉCURITÉ</b>
+        const securityDetails = typeof data.message === 'object' ? data.message : JSON.parse(data.message || '{}');
+        let detailsText = '';
 
-⚠️ <b>Type:</b> ${data.type || 'Inconnu'}
-📍 <b>Page:</b> ${data.page || 'Inconnue'}
-🌍 <b>IP:</b> ${data.ip || 'Inconnue'}
-📝 <b>Détails:</b> ${data.message || 'Aucun détail'}
-⏰ <b>Heure:</b> ${new Date().toLocaleString('fr-FR')}
-        `;
+        // Formatage spécifique selon le type d'alerte de sécurité
+        if (data.type === 'CLIC_DROIT') {
+          detailsText = `
+📋 <b>Détails de l'action :</b>
+   - 🖱️ <b>Cible :</b> <code>${securityDetails.target || 'N/A'}</code>
+   - 🆔 <b>ID de l'élément :</b> <code>${securityDetails.id || 'Aucun'}</code>
+   - 🔡 <b>Classe :</b> <code>${securityDetails.className || 'Aucune'}</code>
+   - 📍 <b>Coords (X, Y) :</b> ${securityDetails.x || '?'}, ${securityDetails.y || '?'}`;
+        } else if (data.type === 'NAVIGATION_ATTEMPT') {
+          detailsText = `
+🔗 <b>URL de destination :</b>
+<code>${securityDetails.url || 'Inconnue'}</code>`;
+        } else {
+          detailsText = `📝 <b>Détails:</b> ${data.message || 'Aucun détail'}`;
+        }
+
+        message = `
+🚨 <b>ALERTE SÉCURITÉ</b> 🚨
+
+⚠️ <b>Type d'alerte :</b> ${data.type || 'Inconnu'}
+🔗 <b>Page :</b> ${data.page || 'Inconnue'}
+🌐 <b>IP :</b> ${ip}
+${detailsText}
+🕒 <b>Heure :</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}`;
         subject = 'Alerte sécurité';
         break;
 
@@ -102,7 +125,7 @@ export async function POST(request) {
 
 🔧 <b>Type:</b> ${data.type || 'Inconnu'}
 📝 <b>Message:</b> ${data.message || 'Aucun détail'}
-🌍 <b>IP:</b> ${data.ip || 'Inconnue'}
+🌍 <b>IP:</b> ${ip}
 ⏰ <b>Heure:</b> ${new Date().toLocaleString('fr-FR')}
         `;
         subject = 'Erreur serveur';
@@ -126,6 +149,7 @@ export async function POST(request) {
 ℹ️ <b>NOTIFICATION</b>
 
 📝 <b>Type:</b> ${type}
+🌐 <b>IP :</b> ${ip}
 📄 <b>Données:</b> ${JSON.stringify(data, null, 2)}
 ⏰ <b>Heure:</b> ${new Date().toLocaleString('fr-FR')}
         `;

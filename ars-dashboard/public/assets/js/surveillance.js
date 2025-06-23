@@ -57,13 +57,20 @@ class SurveillanceSystem {
             });
         });
 
-        // Surveillance des tentatives de navigation
-        window.addEventListener('popstate', () => {
-            this.recordViolation('NAVIGATION_ATTEMPT', {
-                url: window.location.href,
-                timestamp: new Date().toISOString()
-            });
-        });
+        // Surveillance des tentatives de navigation (améliorée)
+        document.addEventListener('click', (e) => {
+            // On cherche l'élément <a> le plus proche du clic
+            const link = e.target.closest('a');
+
+            // Si un lien est trouvé et qu'il a une ancre (#)
+            if (link && link.getAttribute('href')?.startsWith('#')) {
+                // On enregistre une alerte, mais on pourrait aussi choisir de l'ignorer
+                this.recordViolation('NAVIGATION_ATTEMPT', {
+                    url: link.href,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }, true); // On utilise la capture pour intercepter l'événement tôt
     }
 
     setupEventListeners() {
