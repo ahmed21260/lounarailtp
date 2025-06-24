@@ -240,9 +240,20 @@ class SurveillanceSystem {
         };
         console.error('🚨 VIOLATION RÉSEAU DÉTECTÉE:', fullViolationDetails);
         
-        // Affichage d'un avertissement visuel
-        this.showWarning(type);
-        
+        // Affichage d'un avertissement visuel UNIQUEMENT pour les vraies tentatives
+        const noPopupTypes = [
+            'TENTATIVE_ZOOM',
+            'SCROLL',
+            'TENTATIVE_SCROLL',
+            'TENTATIVE_SCROLL_75',
+            'TENTATIVE_SCROLL_90',
+            'TENTATIVE_SCROLL_100',
+            'TENTATIVE_SCROLL_45S',
+            // Ajoute ici d'autres types "normaux" si besoin
+        ];
+        if (!noPopupTypes.includes(type)) {
+            this.showWarning(type);
+        }
         // Log local pour sauvegarde
         // this.storeLocally(violation); // Désactivé pour l'instant
     }

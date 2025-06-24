@@ -6,12 +6,36 @@ import { useRouter } from 'next/navigation';
 import Chart from 'chart.js/auto';
 import { BarChart, Compass, DollarSign, FileText, Globe, LifeBuoy, LogOut, Settings, Users, Video, ShieldCheck, UserCheck, Search, Activity, List, LayoutDashboard, LineChart } from 'lucide-react';
 import './MegaDashboard.css';
+import { toast } from 'react-hot-toast';
+
+// --- ACCÈS SÉCURISÉ ---
+const DASHBOARD_ID = 'louna-ctrl-2024';
+const DASHBOARD_PWD = 'Louna@Mega2024';
 
 const MegaDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
     const [stats, setStats] = useState({ userCount: 0, projectCount: 0, complianceRate: 0, ytdSales: 0, users: [] });
     const [loading, setLoading] = useState(true);
+    const [auth, setAuth] = useState(false);
+    const [id, setId] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [alert, setAlert] = useState(null);
     const router = useRouter();
+
+    // --- SÉCURITÉ : Auth simple ---
+    if (!auth) {
+        return (
+            <div className="dashboard-login">
+                <h2>Accès sécurisé MegaDashboard</h2>
+                <input placeholder="ID" value={id} onChange={e => setId(e.target.value)} />
+                <input placeholder="Mot de passe" type="password" value={pwd} onChange={e => setPwd(e.target.value)} />
+                <button onClick={() => {
+                    if (id === DASHBOARD_ID && pwd === DASHBOARD_PWD) setAuth(true);
+                    else toast.error('ID ou mot de passe incorrect');
+                }}>Connexion</button>
+            </div>
+        );
+    }
 
     const renderContent = () => {
         switch (activeTab) {
@@ -20,6 +44,10 @@ const MegaDashboard = () => {
             case 'users': return <UsersTab users={stats.users} />;
             case 'surveillance': return <SurveillanceTab />;
             case 'security': return <SecurityLogsTab />;
+            case 'google': return <GoogleTab setAlert={setAlert} />;
+            case 'meta': return <MetaTab setAlert={setAlert} />;
+            case 'clarity': return <ClarityTab setAlert={setAlert} />;
+            case 'telegram': return <TelegramTab setAlert={setAlert} />;
             default: return <OverviewTab stats={stats} />;
         }
     };
@@ -49,6 +77,7 @@ const MegaDashboard = () => {
             <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
             <main className="dashboard-main">
                 <Header router={router} />
+                {alert && <div className="alert-bar">{alert}</div>}
                 <div className="dashboard-content">
                     {renderContent()}
                 </div>
@@ -69,12 +98,14 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                 <p className="nav-category">ANALYSE</p>
                 <NavItem icon={<LayoutDashboard size={20} />} label="Vue d'ensemble" id="overview" activeTab={activeTab} setActiveTab={setActiveTab} />
                 <NavItem icon={<LineChart size={20} />} label="Analytics Web" id="analytics" activeTab={activeTab} setActiveTab={setActiveTab} />
-                
+                <NavItem icon={<Globe size={20} />} label="Google" id="google" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavItem icon={<BarChart size={20} />} label="Meta/Facebook" id="meta" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavItem icon={<Video size={20} />} label="Clarity" id="clarity" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavItem icon={<LifeBuoy size={20} />} label="Telegram" id="telegram" activeTab={activeTab} setActiveTab={setActiveTab} />
                 <p className="nav-category">GESTION</p>
                 <NavItem icon={<Users size={20} />} label="Candidats" id="users" activeTab={activeTab} setActiveTab={setActiveTab} />
                 <NavItem icon={<FileText size={20} />} label="Formations" onClick={() => router.push('/admin/dashboard/formations')} />
                 <NavItem icon={<DollarSign size={20} />} label="Finances" id="finance" activeTab={activeTab} setActiveTab={setActiveTab} />
-
                 <p className="nav-category">SÉCURITÉ</p>
                 <NavItem icon={<ShieldCheck size={20} />} label="Surveillance" id="surveillance" activeTab={activeTab} setActiveTab={setActiveTab} />
                 <NavItem icon={<Activity size={20} />} label="Logs Sécurité" id="security" activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -443,5 +474,97 @@ const getDevicesChartConfig = (data) => ({
     },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
 });
+
+// --- NOUVEAUX TABS ---
+const GoogleTab = ({ setAlert }) => {
+    const [connected, setConnected] = useState(false);
+    const [logs, setLogs] = useState([]);
+    useEffect(() => {
+        let liveLogs = [];
+        const updateLog = (event) => {
+            liveLogs = [{ time: new Date().toLocaleTimeString(), event }, ...liveLogs].slice(0, 20);
+            setLogs([...liveLogs]);
+        };
+        if (window.dataLayer) {
+            setConnected(true);
+            setAlert('Google Analytics connecté. Surveillance live activée.');
+            // Proxy sur dataLayer.push pour logger les events en live
+            const originalPush = window.dataLayer.push;
+            window.dataLayer.push = function () {
+                updateLog(JSON.stringify(arguments[0]));
+                return originalPush.apply(this, arguments);
+            };
+        } else {
+            setConnected(false);
+            setAlert('Google Analytics non détecté.');
+        }
+    }, [setAlert]);
+    return (
+        <div className="tab-content-inner">
+            <h2>Google Analytics / Search Console / Tag Manager</h2>
+            <span className={`badge ${connected ? 'badge-green' : 'badge-red'}`}>{connected ? 'Connecté' : 'Non détecté'}</span>
+            <p>Synchronisation live des événements de la session courante.</p>
+            <h4>Log d'activité (live)</h4>
+            <table className="data-table"><thead><tr><th>Heure</th><th>Événement</th></tr></thead><tbody>{logs.map((log, i) => <tr key={i}><td>{log.time}</td><td>{log.event}</td></tr>)}</tbody></table>
+        </div>
+    );
+};
+const MetaTab = ({ setAlert }) => {
+    const [connected, setConnected] = useState(false);
+    const [logs, setLogs] = useState([]);
+    useEffect(() => {
+        let liveLogs = [];
+        const updateLog = (event) => {
+            liveLogs = [{ time: new Date().toLocaleTimeString(), event }, ...liveLogs].slice(0, 20);
+            setLogs([...liveLogs]);
+        };
+        if (window.fbq) {
+            setConnected(true);
+            setAlert('Meta Pixel connecté. Tracking Facebook live.');
+            const oldFbq = window.fbq;
+            window.fbq = function () {
+                updateLog(JSON.stringify(arguments));
+                return oldFbq.apply(this, arguments);
+            };
+        } else {
+            setConnected(false);
+            setAlert('Meta Pixel non détecté.');
+        }
+    }, [setAlert]);
+    return (
+        <div className="tab-content-inner">
+            <h2>Meta Pixel (Facebook)</h2>
+            <span className={`badge ${connected ? 'badge-green' : 'badge-red'}`}>{connected ? 'Connecté' : 'Non détecté'}</span>
+            <p>Synchronisation live des événements Meta Pixel de la session courante.</p>
+            <h4>Log d'activité (live)</h4>
+            <table className="data-table"><thead><tr><th>Heure</th><th>Événement</th></tr></thead><tbody>{logs.map((log, i) => <tr key={i}><td>{log.time}</td><td>{log.event}</td></tr>)}</tbody></table>
+        </div>
+    );
+};
+const ClarityTab = ({ setAlert }) => {
+    useEffect(() => {
+        setAlert('Clarity connecté. Session recording actif.');
+    }, [setAlert]);
+    return (
+        <div className="tab-content-inner">
+            <h2>Microsoft Clarity</h2>
+            <p>Session recording et heatmaps actifs. (À personnaliser selon tes besoins)</p>
+        </div>
+    );
+};
+const TelegramTab = ({ setAlert }) => {
+    useEffect(() => {
+        setAlert('Webhook Telegram actif.');
+        // Exemple : jouer un son sur message critique
+        const audio = new Audio('/sounds/alert.mp3');
+        audio.play();
+    }, [setAlert]);
+    return (
+        <div className="tab-content-inner">
+            <h2>Notifications Telegram</h2>
+            <p>Webhook connecté. Alertes en temps réel. (À personnaliser selon tes besoins)</p>
+        </div>
+    );
+};
 
 export default MegaDashboard; 

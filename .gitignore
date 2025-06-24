@@ -58,3 +58,6 @@ Thumbs.db
 .vercel
 node_modules
 .next/
+
+# Securite ++
+securite ++/

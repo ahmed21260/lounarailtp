@@ -20,6 +20,7 @@
   "author": "Ahmed Chaira",
   "license": "ISC",
   "dependencies": {
+    "@hotjar/browser": "^1.0.9",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "bcrypt": "^5.1.1",

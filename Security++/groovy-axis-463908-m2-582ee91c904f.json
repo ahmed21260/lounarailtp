@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "groovy-axis-463908-m2",
+  "private_key_id": "582ee91c904f6f5de586dddb0b91222ba5134710",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDgvPBCVF2YIuzN\nQKawsQx+oKBEly7jbwZPvNXiwhYJTKxR89a1U7NhroxptpUwP2fEIfFww3z2zsn0\ngVUxix1wcA0r+ZLhLPkv+hts4X8xuoSbyHPkqVUj2jCCHqfnKvQg8YfcprMsRIpl\nPBBuLRDwq42PPePEDnmJNBGgYMnaVEx3QIG+nNkBmNsrG/kwC5DgqtJr5TxKmUZv\nG2LVCpcWe04MYC+Hsd7An1TuQLzLjMyoUyMz8wklPuXi0E0+NWoafXvU/+0kJVNl\nklx6bXebp54ChB8gnPhCXzqi9/gf6XAoyg6naxcPKd0NVzSUvHVP+G9jSoA+ITFr\nisPOUXfzAgMBAAECggEAUMsL0sSyqxVvLTDfXCkiNUm4pD/3ntLUoYjhGbatpmU2\nk/XFzAVNuUG/f+egRaqdutB7FI9q1u2rg+eVAY0iJcBas+Lyr1n0MY/IGUIN8Io9\nzyVmqJ9JmOyBQN4VfZEfF9LNBYG2ayUu3csUmw8/hk4eQ4872Ulc3vrllVMGbiLw\nbzO1WlZS0U5ylp1JqM1FnbE4w7eWV/WuDcXsRWf2xwEDWKnw9truCc23+mK5Z8ZG\nCArV4Rk0b1EiEzpA0BvsebfauZaUlPr1y/2GHT/4oxUfF5X/W3rfJ/9Y8q/2ywjA\n9bIKI+pLRhmx5zuBCykqeO/H5Y9xcDuEVpKjcWQWIQKBgQD9BnDVA0LkMGhJnBfM\nYgzaYhX7cTilYGyboHW7M5y3JYji5AN8gsdOYESJVDtrp4fhzz+REZdSh5OOvUv7\noB2i+37SmLsdpNXq9VW4llXoLSzozM22DO9pj3F0YSQkfp8sEWJAfuwSB5nP5Tr2\nQLdb7dvjy0AdEAv7mY8Wdy0ckwKBgQDjYVvV4/GKjh/EGXqCgENNmnV/j3FYC62u\nJ4MTDNmOhniqTSqV5sgT2+e1c23ifvDjf9U65Ql+HqeVAvivGgNSg87dHTNaYDke\nmJag2d85IAr5e1l3Yx07p3y7+7koPELGMReFVk5yuvBC3cju/xCKCuVKNMjff1Nk\nv3wPWSKzIQKBgQDZy517/d6qRPC/y9jAWPXvVNbPJNo5oBJcs3YjuX2AOJLnmpVV\nq8ybLkpQW2z6ca6JNLfmy1mR9JmTGGY7Jcvc6tZzuHv4PFbWdG9hACbaP2iUyxWX\nSvMZzhs+rg9KSqQAbsY/9gCGVHyVcx+ZsIMkYk4QenepjJKD894y3Eq8eQKBgBYG\nPCr/pUnScmlAPomdeudtaqwsbMImf3A7C4sw13HivJViXBmg/QhPaKY+xAoIWbTv\nkOvfe4fn2DuqygPL9T5s3gC072B1qZK5HP3/nIuf+vAnbocN5qr8kixzOYAYNi+U\nWb7kmTyrttIDQY9EzYlRfNwvOLXNU3qSwaWK8L2BAoGBAJVWpYN8OMV79dfdM9Sk\n+xhskNnBhFfoUxnrKSnBR3PX4wLwEep13sUDhOk2xbUiKWFWGR6CriF9OlidAXlS\nJaoRzp64TVoblHoc0mHLJkXzUOP2/g4L+RcEoIXGl1i+3HNt9JRzd3VQhduEPTZR\nEKff6maEfiNFmkGLFMBJNa4i\n-----END PRIVATE KEY-----\n",
+  "client_email": "dashboard-analytics@groovy-axis-463908-m2.iam.gserviceaccount.com",
+  "client_id": "106239285991183436804",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dashboard-analytics%40groovy-axis-463908-m2.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
